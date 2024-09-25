@@ -53,6 +53,14 @@ Each image file is associated with a category label based on the folder it is st
 ### Data Fields
 
 List and describe the fields present in the dataset. Mention their data type, and whether they are used as input or output in any of the tasks the dataset currently supports. If the data has span indices, describe their attributes, such as whether they are at the character level or word level, whether they are contiguous or not, etc. If the datasets contains example IDs, state whether they have an inherent meaning, such as a mapping to other datasets or pointing to relationships between data points.
+- **`image_path`**: The file path to the image (string).
+- **`label`**: The class label of the image (integer) with the following categories:
+  - `0`: buildings
+  - `1`: forest
+  - `2`: glacier
+  - `3`: mountain
+  - `4`: sea
+  - `5`: street
 
 - `example_field`: description of `example_field`
 
