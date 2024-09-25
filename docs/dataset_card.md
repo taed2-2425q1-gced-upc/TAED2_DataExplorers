@@ -12,9 +12,8 @@ This dataset contains approximately 25000 images of natural scenes from various 
 
 ### Supported Tasks and Leaderboards
 
-For each of the tasks tagged for this dataset, give a brief description of the tag, metrics, and suggested models (with a link to their HuggingFace implementation if available). Give a similar description of tasks that were not covered by the structured tag set (repace the `task-category-tag` with an appropriate `other:other-task-name`).
-
-- `task-category-tag`: The dataset can be used to train a model for [TASK NAME], which consists in [TASK DESCRIPTION]. Success on this task is typically measured by achieving a *high/low* [metric name](https://huggingface.co/metrics/metric_name). The ([model name](https://huggingface.co/model_name) or [model class](https://huggingface.co/transformers/model_doc/model_class.html)) model currently achieves the following score. *[IF A LEADERBOARD IS AVAILABLE]:* This task has an active leaderboard which can be found at [leaderboard url]() and ranks models based on [metric name](https://huggingface.co/metrics/metric_name) while also reporting [other metric name](https://huggingface.co/metrics/other_metric_name).
+- `task-category-tag`: The dataset can be used to train a model for image classification, which consists in classifying an input image into one of six categories: buildings, forest, glacier, mountain, sea, or street. Success on this task is typically measured using [accuracy](https://huggingface.co/spaces/evaluate-metric/accuracy), where a high accuracy score represents a better performance.
+There is no active leaderboard, but it was originally used in the Intel Image Classification Challenge, with models ranked by accuracy.
 
 ### Languages
 
