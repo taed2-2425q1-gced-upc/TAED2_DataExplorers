@@ -73,47 +73,25 @@ Each image file is associated with a category label based on the folder it is st
 
 ### Curation Rationale
 
-What need motivated the creation of this dataset? What are some of the reasons underlying the major choices involved in putting it together?
+This dataset was created to support the development of image classification models for distinguishing between different types of natural landscapes.
 
 ### Source Data
 
-This section describes the source data (e.g. news text and headlines, social media posts, translated sentences,...)
+The images were originally published on [DataHack by Analytics Vidhya](https://datahack.analyticsvidhya.com/) for the Intel Image Classification Challenge.
 
 #### Initial Data Collection and Normalization
 
-Describe the data collection process. Describe any criteria for data selection or filtering. List any key words or search terms used. If possible, include runtime information for the collection process.
-
-If data was collected from other pre-existing datasets, link to source here and to their [Hugging Face version](https://huggingface.co/datasets/dataset_name).
-
-If the data was modified or normalized after being collected (e.g. if the data is word-tokenized), describe the process and the tools used.
-
-#### Who are the source language producers?
-
-State whether the data was produced by humans or machine generated. Describe the people or systems who originally created the data.
-
-If available, include self-reported demographic or identity information for the source data creators, but avoid inferring this information. Instead state that this information is unknown. See [Larson 2017](https://www.aclweb.org/anthology/W17-1601.pdf) for using identity categories as a variables, particularly gender.
-
-Describe the conditions under which the data was created (for example, if the producers were crowdworkers, state what platform was used, or if the data was found, what website the data was found on). If compensation was provided, include that information here.
-
-Describe other people represented or mentioned in the data. Where possible, link to references for the information.
+The images were collected and categorized by Intel as part of the challenge. Each image was resized to 150x150 pixels for uniformity and grouped into the six categories mentioned earlier. 
 
 ### Annotations
 
-If the dataset contains annotations which are not part of the initial data collection, describe them in the following paragraphs.
-
 #### Annotation process
 
-If applicable, describe the annotation process and any tools used, or state otherwise. Describe the amount of data annotated, if not all. Describe or reference annotation guidelines provided to the annotators. If available, provide interannotator statistics. Describe any annotation validation processes.
+The images were labeled based on their content (for example a forest or a glacier). These labels were likely assigned by human annotators, although there is no detailed documentation on the annotation process.
 
 #### Who are the annotators?
 
-If annotations were collected for the source data (such as class labels or syntactic parses), state whether the annotations were produced by humans or machine generated.
-
-Describe the people or systems who originally created the annotations and their selection criteria if applicable.
-
-If available, include self-reported demographic or identity information for the annotators, but avoid inferring this information. Instead state that this information is unknown. See [Larson 2017](https://www.aclweb.org/anthology/W17-1601.pdf) for using identity categories as a variables, particularly gender.
-
-Describe the conditions under which the data was annotated (for example, if the annotators were crowdworkers, state what platform was used, or if the data was found, what website the data was found on). If compensation was provided, include that information here.
+The dataset's labels were likely provided by Intel or crowdworkers, but specific demographic or identity information about the annotators is not available.
 
 ### Personal and Sensitive Information
 
