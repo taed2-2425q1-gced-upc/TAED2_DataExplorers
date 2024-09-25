@@ -19,7 +19,27 @@ There is no active leaderboard, but it was originally used in the Intel Image Cl
 
 ### Data Instances
 
-Provide an JSON-formatted example and brief description of a typical instance in the dataset. If available, provide a link to further examples.
+Each instance consists of a 150x150 pixel image of a natural scene. The image data is stored in three separated zip files: `seg_train`, `seg_test`, and `seg_pred`, with images separated into six categories: buildings, forest, glacier, mountain, sea, and street. 
+
+The dataset structure is as follows:
+
+- **`seg_train/`**  
+  - `buildings/`  
+  - `forest/`  
+  - `glacier/`  
+  - `mountain/`  
+  - `sea/`  
+  - `street/`  
+
+- **`seg_test/`**  
+  - `buildings/`  
+  - `forest/`  
+  - `glacier/`  
+  - `mountain/`  
+  - `sea/`  
+  - `street/`  
+
+- **`seg_pred/`** (unlabeled images for prediction tasks)
 
 ```
 {
