@@ -95,29 +95,17 @@ The dataset's labels were likely provided by Intel or crowdworkers, but specific
 
 ### Personal and Sensitive Information
 
-State whether the dataset uses identity categories and, if so, how the information is used. Describe where this information comes from (i.e. self-reporting, collecting from profiles, inferring, etc.). See [Larson 2017](https://www.aclweb.org/anthology/W17-1601.pdf) for using identity categories as a variables, particularly gender. State whether the data is linked to individuals and whether those individuals can be identified in the dataset, either directly or indirectly (i.e., in combination with other data).
-
-State whether the dataset contains other data that might be considered sensitive (e.g., data that reveals racial or ethnic origins, sexual orientations, religious beliefs, political opinions or union memberships, or locations; financial or health data; biometric or genetic data; forms of government identification, such as social security numbers; criminal history).  
-
-If efforts were made to anonymize the data, describe the anonymization process.
+The dataset contains no personal or sensitive information, as it consists on landscape images and does not involve any identifiable human subject.
 
 ## Considerations for Using the Data
 
 ### Social Impact of Dataset
 
-Please discuss some of the ways you believe the use of this dataset will impact society.
-
-The statement should include both positive outlooks, such as outlining how technologies developed through its use may improve people's lives, and discuss the accompanying risks. These risks may range from making important decisions more opaque to people who are affected by the technology, to reinforcing existing harmful biases (whose specifics should be discussed in the next section), among other considerations.
-
-Also describe in this section if the proposed dataset contains a low-resource or under-represented language. If this is the case or if this task has any impact on underserved communities, please elaborate here.
+This dataset provides a valuable resource for training and evaluating machine learning models that can classify natural scenes. Potential positive impacts include improved accuracy of scene classification algorithms, which can be used in applications like environmental monitoring and geographic information systems. However, users should be cautious of any biases in the dataset, such as an uneven distribution of landscape types that could distort the model's performance.
 
 ### Discussion of Biases
 
-Provide descriptions of specific biases that are likely to be reflected in the data, and state whether any steps were taken to reduce their impact.
-
-For Wikipedia text, see for example [Dinan et al 2020 on biases in Wikipedia (esp. Table 1)](https://arxiv.org/abs/2005.00614), or [Blodgett et al 2020](https://www.aclweb.org/anthology/2020.acl-main.485/) for a more general discussion of the topic.
-
-If analyses have been run quantifying these biases, please add brief summaries and links to the studies here.
+There may be biases in the dataset due to over- or under-representation of certain landscape types (for example, more images of forests or streets). This could affect the model's ability to generalize to unseen data from underrepresented categories.
 
 ### Other Known Limitations
 
@@ -127,26 +115,23 @@ If studies of the datasets have outlined other limitations of the dataset, such 
 
 ### Dataset Curators
 
-List the people involved in collecting the dataset and their affiliation(s). If funding information is known, include it here.
+The dataset was curated by Intel and hosted by DataHack (Analytics Vidhya).
 
 ### Licensing Information
 
-Provide the license and link to the license webpage if available.
+There is no specific license mentioned for the dataset, but users are encouraged to respect the guidelines of the hosting platforms.
 
 ### Citation Information
 
-Provide the [BibTex](http://www.bibtex.org/)-formatted reference for the dataset. For example:
 ```
-@article{article_id,
-  author    = {Author List},
-  title     = {Dataset Paper Title},
-  journal   = {Publication Venue},
-  year      = {2525}
+@misc{intel_landscape_classification,
+  author    = {Intel},
+  title     = {Intel Image Classification Dataset},
+  year      = {2018},
+  howpublished = {https://datahack.analyticsvidhya.com/}
 }
 ```
 
-If the dataset has a [DOI](https://www.doi.org/), please provide it here.
-
 ### Contributions
 
-Thanks to [@github-username](https://github.com/<github-username>) for adding this dataset.
+Thanks to [@puneet6060](https://github.com/puneet6060) for adding this dataset on Kaggle.
