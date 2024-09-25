@@ -12,7 +12,7 @@ This dataset contains approximately 25000 images of natural scenes from various 
 
 ### Supported Tasks and Leaderboards
 
-- `task-category-tag`: The dataset can be used to train a model for image classification, which consists in classifying an input image into one of six categories: buildings, forest, glacier, mountain, sea, or street. Success on this task is typically measured using [accuracy](https://huggingface.co/spaces/evaluate-metric/accuracy), where a high accuracy score represents a better performance.
+- `image-classification`: The dataset can be used to train a model for image classification, which consists in classifying an input image into one of six categories: buildings, forest, glacier, mountain, sea, or street. Success on this task is typically measured using [accuracy](https://huggingface.co/spaces/evaluate-metric/accuracy), where a high accuracy score represents a better performance.
 There is no active leaderboard, but it was originally used in the Intel Image Classification Challenge, with models ranked by accuracy.
 
 ### Languages
