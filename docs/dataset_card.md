@@ -15,12 +15,6 @@ This dataset contains approximately 25000 images of natural scenes from various 
 - `image-classification`: The dataset can be used to train a model for image classification, which consists in classifying an input image into one of six categories: buildings, forest, glacier, mountain, sea, or street. Success on this task is typically measured using [accuracy](https://huggingface.co/spaces/evaluate-metric/accuracy), where a high accuracy score represents a better performance.
 There is no active leaderboard, but it was originally used in the Intel Image Classification Challenge, with models ranked by accuracy.
 
-### Languages
-
-Provide a brief overview of the languages represented in the dataset. Describe relevant details about specifics of the language such as whether it is social media text, African American English,...
-
-When relevant, please provide [BCP-47 codes](https://tools.ietf.org/html/bcp47), which consist of a [primary language subtag](https://tools.ietf.org/html/bcp47#section-2.2.1), with a [script subtag](https://tools.ietf.org/html/bcp47#section-2.2.3) and/or [region subtag](https://tools.ietf.org/html/bcp47#section-2.2.4) if available.
-
 ## Dataset Structure
 
 ### Data Instances
