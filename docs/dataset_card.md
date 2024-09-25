@@ -41,7 +41,7 @@ The dataset structure is as follows:
 
 - **`seg_pred/`** (unlabeled images for prediction tasks)
 
-Each image file is associated with a category label based on the folder it resides in (for example, images in `seg_train/buildings/` are labeled as "buildings"). Here is an example format:
+Each image file is associated with a category label based on the folder it is stored in (for example, images in `seg_train/buildings/` are labeled as "buildings"). Here is an example format:
 
 ```
 {
