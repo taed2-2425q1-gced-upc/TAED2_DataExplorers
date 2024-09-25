@@ -73,7 +73,7 @@ Each image file is associated with a category label based on the folder it is st
 
 ### Curation Rationale
 
-This dataset was created to support the development of image classification models for distinguishing between different types of natural landscapes.
+This dataset was created to support the development of image classification models for distinguishing between different types of landscapes.
 
 ### Source Data
 
