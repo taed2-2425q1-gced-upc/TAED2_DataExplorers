@@ -2,7 +2,7 @@
 
 ## Dataset Description
 
-- **Homepage:** [Add homepage URL here if available (unless it's a GitHub repository)]()
+- **Homepage:** [(https://www.kaggle.com/datasets/puneet6060/intel-image-classification/data)]()
 - **Repository:** [If the dataset is hosted on github or has a github homepage, add URL here]()
 - **Paper:** [If the dataset was introduced by a paper or there was a paper written describing the dataset, add URL here (landing page for Arxiv paper preferred)]()
 - **Leaderboard:** [If the dataset supports an active leaderboard, add link here]()
