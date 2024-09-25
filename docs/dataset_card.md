@@ -52,32 +52,22 @@ Each image file is associated with a category label based on the folder it is st
 
 ### Data Fields
 
-List and describe the fields present in the dataset. Mention their data type, and whether they are used as input or output in any of the tasks the dataset currently supports. If the data has span indices, describe their attributes, such as whether they are at the character level or word level, whether they are contiguous or not, etc. If the datasets contains example IDs, state whether they have an inherent meaning, such as a mapping to other datasets or pointing to relationships between data points.
 - **`image_path`**: The file path to the image (string).
-- **`label`**: The class label of the image (integer) with the following categories:
-  - `0`: buildings
-  - `1`: forest
-  - `2`: glacier
-  - `3`: mountain
-  - `4`: sea
-  - `5`: street
+- **`label`**: The class label of the image (string), corresponding to the folder name. The possible values are:
+  - `buildings`
+  - `forest`
+  - `glacier`
+  - `mountain`
+  - `sea`
+  - `street`
 
-- `example_field`: description of `example_field`
-
-Note that the descriptions can be initialized with the **Show Markdown Data Fields** output of the [Datasets Tagging app](https://huggingface.co/spaces/huggingface/datasets-tagging), you will then only need to refine the generated descriptions.
 
 ### Data Splits
 
-Describe and name the splits in the dataset if there are more than one.
+- `Train`: 14000 images
+- `Test`: 3000 images
+- `Prediction`: 7000 images
 
-Describe any criteria for splitting the data, if used. If there are differences between the splits (e.g. if the training annotations are machine-generated and the dev and test ones are created by humans, or if different numbers of annotators contributed to each example), describe them here.
-
-Provide the sizes of each split. As appropriate, provide any descriptive statistics for the features, such as average length.  For example:
-
-|                         | train | validation | test |
-|-------------------------|------:|-----------:|-----:|
-| Input Sentences         |       |            |      |
-| Average Sentence Length |       |            |      |
 
 ## Dataset Creation
 
