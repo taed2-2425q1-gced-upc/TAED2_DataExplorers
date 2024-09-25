@@ -107,9 +107,6 @@ This dataset provides a valuable resource for training and evaluating machine le
 
 There may be biases in the dataset due to over- or under-representation of certain landscape types (for example, more images of forests or streets). This could affect the model's ability to generalize to unseen data from underrepresented categories.
 
-### Other Known Limitations
-
-If studies of the datasets have outlined other limitations of the dataset, such as annotation artifacts, please outline and cite them here.
 
 ## Additional Information
 
