@@ -3,14 +3,12 @@
 ## Dataset Description
 
 - **Homepage:** [Intel Image Classification](https://www.kaggle.com/datasets/puneet6060/intel-image-classification/data)
-- **Repository:** [If the dataset is hosted on github or has a github homepage, add URL here]()
-- **Paper:** [If the dataset was introduced by a paper or there was a paper written describing the dataset, add URL here (landing page for Arxiv paper preferred)]()
-- **Leaderboard:** The dataset originally supported a leaderboard as part of the Intel Image Classification Challenge hosted on [DataHack](https://datahack.analyticsvidhya.com/).
-- **Point of Contact:** [If known, name and email of at least one person the reader can contact for questions about the dataset.]()
+- **Leaderboard:** The dataset originally supported a leaderboard as part of the Intel Image Classification Challenge hosted on [DataHack Analytics Vidhya](https://datahack.analyticsvidhya.com/).
+
 
 ### Dataset Summary
 
-Briefly summarize the dataset, its intended use and the supported tasks. Give an overview of how and why the dataset was created. The summary should explicitly mention the languages present in the dataset (possibly in broad terms, e.g. *translations between several pairs of European languages*), and describe the domain, topic, or genre covered.
+This dataset contains approximately 25000 images of natural scenes from various landscapes around the world. The images are 150x150 pixels in size and categorized into six different classes: buildings (0), forest (1), glacier (2), mountain (3), sea (4), and street (5). The dataset was initially created for an image classification challenge hosted by Intel on DataHack Analytics Vidhya. The images are separated into three zip files: training (around 14000 images), testing (around 3000 images), and prediction (around 7000 images). The primary task supported by this dataset is image classification, where the goal is to classify images into one of the six scene categories.
 
 ### Supported Tasks and Leaderboards
 
