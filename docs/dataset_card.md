@@ -1,4 +1,4 @@
-# Dataset Card for ...
+# Dataset Card for Landscape Image Classification Model
 
 ## Dataset Description
 
