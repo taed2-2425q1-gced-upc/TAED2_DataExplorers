@@ -6,7 +6,7 @@ import glob as gb
 import cv2
 import tensorflow as tf
 import keras
-from config import PROCESSED_DATA_DIR, RAW_DATA_DIR
+from src.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
 import warnings
 from pathlib import Path
 warnings.filterwarnings('ignore')

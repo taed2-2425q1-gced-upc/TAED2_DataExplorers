@@ -1,4 +1,3 @@
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import os
@@ -12,10 +11,7 @@ import mlflow
 import pandas as pd
 import yaml
 from codecarbon import EmissionsTracker
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.tree import DecisionTreeRegressor
-
-from config import METRICS_DIR, MODELS_DIR, PROCESSED_DATA_DIR
+from src.config import METRICS_DIR, MODELS_DIR, PROCESSED_DATA_DIR
 
 mlflow.set_experiment("image-classification")
 mlflow.sklearn.autolog(log_model_signatures=False, log_datasets=False)
@@ -28,8 +24,8 @@ with mlflow.start_run():
     input_folder_path = PROCESSED_DATA_DIR
 
     # Read training dataset
-    x_train = pd.read_csv(input_folder_path / "x_train.npy")
-    y_train = pd.read_csv(input_folder_path / "y_train.npy")
+    x_train = np.load(Path(input_folder_path / "x_train.npy"))
+    y_train = np.load(Path(input_folder_path / "y_train.npy"))
 
     '''
     # Read data preparation parameters
@@ -46,7 +42,8 @@ with mlflow.start_run():
     # ============== #
 
     # Specify the model
-    KerasModel = keras.models.Sequential([
+    s = 100
+    model = keras.models.Sequential([
         keras.layers.Conv2D(200,kernel_size=(3,3),activation='relu',input_shape=(s,s,3)),
         keras.layers.Conv2D(150,kernel_size=(3,3),activation='relu'),
         keras.layers.MaxPool2D(4,4),
@@ -62,10 +59,7 @@ with mlflow.start_run():
         keras.layers.Dense(6,activation='softmax') ,    
         ])
     
-    KerasModel.compile(optimizer ='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
-
-    # For the sake of reproducibility, set the `random_state`
-    model = KerasModel(random_state=2024)
+    model.compile(optimizer ='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
 
     # Track the CO2 emissions of training the model
     emissions_output_folder = METRICS_DIR

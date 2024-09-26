@@ -1,0 +1,45 @@
+schema: '2.0'
+stages:
+  preprocessing:
+    cmd: python3 -m src.features.preprocessing
+    deps:
+    - path: data/raw/seg_pred
+      hash: md5
+      md5: 60d3bed882c9b4f9365488a922defe37.dir
+      size: 110600684
+      nfiles: 7301
+    - path: data/raw/seg_test
+      hash: md5
+      md5: 33cfdaa1708c48814a4a1206bde93c92.dir
+      size: 45382818
+      nfiles: 3000
+    - path: data/raw/seg_train
+      hash: md5
+      md5: 26ead25fdb2268128d40ade86d29e228.dir
+      size: 212876095
+      nfiles: 14034
+    - path: src/features/preprocessing.py
+      hash: md5
+      md5: 50395213b11d5b4dbfa8274c637a1de9
+      size: 2866
+    outs:
+    - path: data/processed/x_pred.npy
+      hash: md5
+      md5: 6fdb98f8fbcecbf0b5da85ca743ce0aa
+      size: 219030128
+    - path: data/processed/x_test.npy
+      hash: md5
+      md5: c47d2e0e6651d5999d661995d4dce5b0
+      size: 90000128
+    - path: data/processed/x_train.npy
+      hash: md5
+      md5: b77542a68e6c9733e1c2d4d0efd3a20d
+      size: 421020128
+    - path: data/processed/y_test.npy
+      hash: md5
+      md5: 86915c4fd0cc5fedb8b59dd6526ea341
+      size: 24128
+    - path: data/processed/y_train.npy
+      hash: md5
+      md5: a6dbf66e4fe058810d9893f8c6b3d836
+      size: 112400
