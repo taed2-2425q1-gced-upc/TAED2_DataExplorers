@@ -1,0 +1,32 @@
+stages:
+  preprocessing:
+    cmd: python3 -m src.features.preprocessing
+    deps:
+    - data/raw/seg_pred
+    - data/raw/seg_test
+    - data/raw/seg_train
+    - src/features/preprocessing.py
+    outs:
+    - data/processed/x_pred.npy
+    - data/processed/x_test.npy
+    - data/processed/x_train.npy
+    - data/processed/y_test.npy
+    - data/processed/y_train.npy
+  train:
+    cmd: python3 -m src.models.train
+    deps:
+    - data/processed/x_train.npy
+    - data/processed/y_train.npy
+    - src/models/train.py
+    outs:
+    - models/model.pkl
+  evaluate:
+    cmd: python3 -m src.models.evaluate
+    deps:
+    - data/processed/x_test.npy
+    - data/processed/y_test.npy
+    - models/model.pkl
+    - src/models/evaluate.py
+    metrics:
+    - metrics/scores.json:
+        cache: false
