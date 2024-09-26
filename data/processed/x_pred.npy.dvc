@@ -1,0 +1,5 @@
+outs:
+- md5: 6fdb98f8fbcecbf0b5da85ca743ce0aa
+  size: 219030128
+  hash: md5
+  path: x_pred.npy
