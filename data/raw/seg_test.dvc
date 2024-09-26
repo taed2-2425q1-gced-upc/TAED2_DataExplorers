@@ -1,0 +1,6 @@
+outs:
+- md5: 33cfdaa1708c48814a4a1206bde93c92.dir
+  size: 45382818
+  nfiles: 3000
+  hash: md5
+  path: seg_test

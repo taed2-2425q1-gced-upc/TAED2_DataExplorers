@@ -78,7 +78,7 @@ for file in files:
 
 x_train = np.array(x_train)
 x_test = np.array(x_test)
-x_pred_array = np.array(x_pred)
+x_pred = np.array(x_pred)
 y_train = np.array(y_train)
 y_test = np.array(y_test)
 
@@ -86,7 +86,7 @@ prepared_folder_path = PROCESSED_DATA_DIR
 
 x_train_path = Path(prepared_folder_path / "x_train.npy")
 x_test_path = Path(prepared_folder_path / "x_test.npy")
-x_pred_array_path = Path(prepared_folder_path / "x_pred_array.npy")
+x_pred_path = Path(prepared_folder_path / "x_pred.npy")
 y_train_path = Path(prepared_folder_path / "y_train.npy")
 y_test_path = Path(prepared_folder_path / "y_test.npy")
 
@@ -95,7 +95,7 @@ print('Data correcly processed.')
 
 np.save(x_train_path, x_train)
 np.save(x_test_path, x_test)
-np.save(x_pred_array_path, x_pred_array)
+np.save(x_pred_path, x_pred)
 np.save(y_train_path, y_train)
 np.save(y_test_path, y_test)
 

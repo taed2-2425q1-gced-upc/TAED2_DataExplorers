@@ -1,0 +1,6 @@
+outs:
+- md5: 60d3bed882c9b4f9365488a922defe37.dir
+  size: 110600684
+  nfiles: 7301
+  hash: md5
+  path: seg_pred
