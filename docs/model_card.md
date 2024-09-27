@@ -66,13 +66,13 @@ While the model is designed for landscape image classification, certain uses are
 
 The model's performance is influenced by several factors, leading to potential biases and limitations:
 
-- Dataset bias: The training dataset may not cover the full diversity of landscape types, leading to underperformance on classes that are underrepresented. 
+- **Dataset bias**: The training dataset may not cover the full diversity of landscape types, leading to underperformance on classes that are underrepresented. 
 
-- Image quality: The classification accuracy can be significantly impacted by the quality of the input images. High-resolution images with clear details tend to yield better predictions, while low-resolution images or those with compression artifacts may lead to misclassification.
+- **Image quality**: The classification accuracy can be significantly impacted by the quality of the input images. High-resolution images with clear details tend to yield better predictions, while low-resolution images or those with compression artifacts may lead to misclassification.
 
-- Environmental conditions: Variability in environmental conditions at the time the images were captured can also affect performance. Factors such as the weather (cloud cover, rain, or snow) can hide important visual features in landscape images, as well as seasonality, which alter the appearance of these scenes, potentially leading to confusion in classification.
+- **Environmental conditions**: Variability in environmental conditions at the time the images were captured can also affect performance. Factors such as the weather (cloud cover, rain, or snow) can hide important visual features in landscape images, as well as seasonality, which alter the appearance of these scenes, potentially leading to confusion in classification.
 
-- Limitations in generalization: The model may struggle to generalize effectively to new landscape types that differ from those seen during training, which can limit its applicability in real-world scenarios.
+- **Limitations in generalization**: The model may struggle to generalize effectively to new landscape types that differ from those seen during training, which can limit its applicability in real-world scenarios.
 
 ### Recommendations
 
