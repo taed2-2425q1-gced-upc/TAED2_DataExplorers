@@ -78,11 +78,11 @@ The model's performance is influenced by several factors, leading to potential b
 
 To mitigate these biases and limitations, it is advisable to:
 
-- Diversify training data: Include a wider variety of landscape types and conditions in the training dataset to improve the model's robustness.
+- **Diversify training data**: Include a wider variety of landscape types and conditions in the training dataset to improve the model's robustness.
 
-- Enhance image quality: Use high-resolution images and consider pre-processing techniques to enhance quality and reduce artifacts.
+- **Enhance image quality**: Use high-resolution images and consider pre-processing techniques to enhance quality and reduce artifacts.
 
-- Consider environmental context: Be aware of the conditions under which images are taken and evaluate how these factors may influence predictions.
+- **Consider environmental context**: Be aware of the conditions under which images are taken and evaluate how these factors may influence predictions.
 
 
 ## How to Get Started with the Model
