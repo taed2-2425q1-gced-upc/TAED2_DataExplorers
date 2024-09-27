@@ -122,10 +122,11 @@ There is no specific license mentioned for the dataset, but users are encouraged
 
 ```
 @misc{intel_landscape_classification,
-  author    = {Intel},
+  author    = {Bansal, Puneet},
   title     = {Intel Image Classification Dataset},
   year      = {2018},
-  url = {https://datahack.analyticsvidhya.com/}
+  publisher = {Kaggle},
+  url = {https://www.kaggle.com/datasets/puneet6060/intel-image-classification/data}
 }
 ```
 
