@@ -100,7 +100,7 @@ The model was trained on the Intel Image Classification dataset, which contains 
 
 
 #### Preprocessing: 
-The preprocessing workflow establishes paths for training, testing, and prediction datasets, and maps each landscape category to a numeric code. It resizes all images to 100x100 pixels, collects images and labels into lists, and converts these lists into Numpy arrays, which are then saved in .npy format for efficient future use.
+The preprocessing workflow establishes paths for training, testing, and prediction datasets, and maps each landscape category to a numeric code. It resizes all images to 100x100 pixels, collects images and labels into lists, and converts these lists into Numpy arrays, which are then saved in `.npy` format for efficient future use.
 
 
 #### Training Hyperparameters
