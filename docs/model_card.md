@@ -185,6 +185,7 @@ The model uses a CNN architecture designed to classify six landscape categories,
 
 **BibTeX:**
 
+```
 @misc{Intel_Image_Classification_CNN,
   author = {Ezzeldean, Mohammed},
   title = {Intel Image Classification CNN},
@@ -192,7 +193,7 @@ The model uses a CNN architecture designed to classify six landscape categories,
   publisher = {Kaggle},
   url = {https://www.kaggle.com/code/mohammedezzeldean/intel-image-classification-cnn}
 }
-
+```
 
 **APA:**
 
