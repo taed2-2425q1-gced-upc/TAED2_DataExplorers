@@ -102,6 +102,8 @@ The model was trained on the Intel Image Classification dataset, which contains 
 #### Preprocessing: 
 The preprocessing workflow establishes paths for training, testing, and prediction datasets, and maps each landscape category to a numeric code. It resizes all images to 100x100 pixels, collects images and labels into lists, and converts these lists into Numpy arrays, which are then saved in `.npy` format for efficient future use.
 
+#### Training overview:
+The `train.py` script trains a convolutional neural network (CNN) for image classification using MLflow for experiment tracking and logging. It loads preprocessed training data from `.npy` files, constructs and compiles the CNN, and tracks carbon emissions during training. After training, the model is saved as a pickle file for future use.
 
 #### Training Hyperparameters
 
@@ -111,8 +113,8 @@ The preprocessing workflow establishes paths for training, testing, and predicti
 - `Loss Function`: Sparse Categorical Crossentropy
 - `Metrics`: Accuracy
 
-#### Speeds, Sizes, Times [optional]
-
+#### Additional notes:
+- **Emissions Tracking**: The emissions tracker ensures the environmental impact of the model training process is monitored and logged, promoting awareness of carbon footprints in machine learning practices.
 
 ## Evaluation
 
