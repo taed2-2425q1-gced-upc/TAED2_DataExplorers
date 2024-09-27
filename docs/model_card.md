@@ -128,23 +128,18 @@ The model was evaluated using a validation dataset consisting of landscape image
 
 #### Factors
 
-<!-- These are the things the evaluation is disaggregating by, e.g., subpopulations or domains. -->
-
-{{ testing_factors | default("[More Information Needed]", true)}}
+Key factors influencing the evaluation results include the quality of the input images, variations in lighting and environmental conditions, and the diversity of landscapes represented in the validation dataset. Additionally, not all categories have the same number of images, which can impact the balance of the dataset. The inherent biases in the training data can also affect how well the model generalizes to unseen data.
 
 #### Metrics
 
-<!-- These are the evaluation metrics being used, ideally with a description of why. -->
-
-{{ testing_metrics | default("[More Information Needed]", true)}}
+The model's performance is measured using accuracy as the primary metric, which reflects the proportion of correctly classified images. Accuracy is particularly useful in this context because it provides a straightforward measure of how often the model makes correct predictions across all classes. Other metrics such as mean absolute error (MAE) and mean squared error (MSE) may also be utilized to provide a comprehensive assessment of the model's predictive capabilities.
 
 ### Results
 
-{{ results | default("[More Information Needed]", true)}}
-
+The evaluation resulted in an accuracy score of [Accuracy Value Here]. This score indicates how well the model classifies landscape images into the correct categories. While accuracy gives a good overview of performance, it might not show all the model's strengths and weaknesses, especially if the dataset is imbalanced or if certain classes are more challenging to classify than others. Future evaluations could include more metrics, like a confusion matrix, to better understand misclassifications and identify fututre improvements of the model.
 #### Summary
 
-{{ results_summary | default("", true) }}
+Overall, the model demonstrates a good performance, effectively classifying landscape images across most categories. However, there may be limitations in accurately identifying certain categories, particularly those with similar features or lower representation in the dataset. Enhancing dataset diversity and refining the model architecture could lead to better classification results in future iterations.
 
 ## Model Examination [optional]
 
