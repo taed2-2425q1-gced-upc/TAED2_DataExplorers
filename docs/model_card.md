@@ -170,7 +170,7 @@ Carbon emissions can be estimated using the [Machine Learning Impact calculator]
 
 ### Model Architecture and Objective
 
-The model uses a CNN architecture designed to classify six categories of landscapes with a softmax output for multi-class classification.
+The model uses a CNN architecture designed to classify six landscape categories, including buildings, forests, glaciers, mountains, seas, and streets. It consists of multiple convolutional layers that extract spatial hierarchies of features, followed by max-pooling layers to reduce dimensionality and improve computational efficiency. Dense layers are included towards the end of the architecture, culminating in a softmax output layer that enables multi-class classification by providing probability distributions over the six classes.
 
 ### Compute Infrastructure
 
