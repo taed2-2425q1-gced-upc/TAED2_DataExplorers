@@ -164,19 +164,21 @@ Carbon emissions can be estimated using the [Machine Learning Impact calculator]
 
 ### Model Architecture and Objective
 
-{{ model_specs | default("[More Information Needed]", true)}}
+The model uses a CNN architecture designed to classify six categories of landscapes with a softmax output for multi-class classification.
 
 ### Compute Infrastructure
 
-{{ compute_infrastructure | default("[More Information Needed]", true)}}
-
 #### Hardware
 
-{{ hardware_requirements | default("[More Information Needed]", true)}}
+- **GPU**: Can be trained using any GPU platform (e.g., NVIDIA Tesla P100, V100, or higher)
+- **RAM**: 16GB or more recommended for faster training
+- **Storage**: Sufficient local or cloud storage required to handle the dataset and model files
 
 #### Software
 
-{{ software | default("[More Information Needed]", true)}}
+- **Keras** (TensorFlow backend): For deep learning model building
+- **Python**
+- **OpenCV**: For image processing
 
 ## Citation [optional]
 
