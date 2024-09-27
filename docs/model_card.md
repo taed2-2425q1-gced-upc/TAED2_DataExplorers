@@ -22,7 +22,7 @@ The model was introduced on Kaggle, and the original implementation is available
 - **Shared by:** [Kaggle](https://www.kaggle.com/)
 - **Model type:** Supervised Learning, CNN
 - **Language(s) (NLP):** Not Applicable
-- **License:** 
+- **License:** Apache 2.0
 - **Finetuned from model [optional]:**
 
 ### Model Sources [optional]
@@ -185,15 +185,26 @@ The model uses a CNN architecture designed to classify six landscape categories,
 
 **BibTeX:**
 
-{{ citation_bibtex | default("[More Information Needed]", true)}}
+@misc{Intel_Image_Classification_CNN,
+  author = {Ezzeldean, Mohammed},
+  title = {Intel Image Classification CNN},
+  year = {2024},
+  publisher = {Kaggle},
+  url = {https://www.kaggle.com/code/mohammedezzeldean/intel-image-classification-cnn}
+}
+
 
 **APA:**
 
-{{ citation_apa | default("[More Information Needed]", true)}}
+Ezzeldean, M. (2024). *Intel Image Classification CNN*. Kaggle. https://www.kaggle.com/code/mohammedezzeldean/intel-image-classification-cnn
 
 ## Glossary [optional]
 
-<!-- If relevant, include terms and calculations in this section that can help readers understand the model or model card. -->
+- **Convolutional Neural Network (CNN)**: A class of deep neural networks commonly used in image recognition and processing tasks, which uses a mathematical operation called convolution to extract features from images.
+- **Epoch**: One complete cycle through the entire training dataset during the training process of a machine learning model.
+- **Batch Size**: The number of training samples utilized in one iteration of the model's learning process.
+- **Sparse Categorical Crossentropy**: A loss function used in multi-class classification problems that measures the performance of a model whose output is a probability value between 0 and 1.
+- **MLflow**: An open-source platform for managing the machine learning lifecycle, including experimentation, reproducibility, and deployment.
 
 {{ glossary | default("[More Information Needed]", true)}}
 
