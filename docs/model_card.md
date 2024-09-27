@@ -94,7 +94,7 @@ Use the code below to get started with the model.
 
 ### Training Data
 
-The model was trained on a diverse dataset of landscape images, containing buildings, forests, glaciers, mountains, seas, and streets. For more details, please refer to the dataset card (posar link).
+The model was trained on the Intel Image Classification dataset, which contains over 14000 landscape images categorized into six classes: buildings, forests, glaciers, mountains, seas, and streets. For more details, please refer to the [dataset card](https://github.com/taed2-2425q1-gced-upc/TAED2_DataExplorers/blob/main/docs/dataset_card.md).
 
 ### Training Procedure
 
