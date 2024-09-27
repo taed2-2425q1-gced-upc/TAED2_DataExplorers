@@ -125,7 +125,7 @@ There is no specific license mentioned for the dataset, but users are encouraged
   author    = {Intel},
   title     = {Intel Image Classification Dataset},
   year      = {2018},
-  howpublished = {https://datahack.analyticsvidhya.com/}
+  url = {https://datahack.analyticsvidhya.com/}
 }
 ```
 
