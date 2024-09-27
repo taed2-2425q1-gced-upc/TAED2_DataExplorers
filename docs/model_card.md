@@ -207,7 +207,6 @@ Ezzeldean, M. (2024). *Intel Image Classification CNN*. Kaggle. https://www.kagg
 - **Sparse Categorical Crossentropy**: A loss function used in multi-class classification problems that measures the performance of a model whose output is a probability value between 0 and 1.
 - **MLflow**: An open-source platform for managing the machine learning lifecycle, including experimentation, reproducibility, and deployment.
 
-{{ glossary | default("[More Information Needed]", true)}}
 
 ## More Information [optional]
 
