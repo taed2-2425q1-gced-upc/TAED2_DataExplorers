@@ -124,9 +124,7 @@ The `train.py` script trains a convolutional neural network (CNN) for image clas
 
 #### Testing Data
 
-<!-- This should link to a Dataset Card if possible. -->
-
-{{ testing_data | default("[More Information Needed]", true)}}
+The model was evaluated using a validation dataset consisting of landscape images that were not part of the training set. The dataset includes images from all six categories: buildings, forests, glaciers, mountains, seas, and streets
 
 #### Factors
 
