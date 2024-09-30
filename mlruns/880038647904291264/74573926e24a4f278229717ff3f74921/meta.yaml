@@ -1,0 +1,15 @@
+artifact_uri: file:///home/martina/Documents/TAED2/Lab/TAED2_DataExplorers/mlruns/880038647904291264/74573926e24a4f278229717ff3f74921/artifacts
+end_time: 1727710129184
+entry_point_name: ''
+experiment_id: '880038647904291264'
+lifecycle_stage: active
+run_id: 74573926e24a4f278229717ff3f74921
+run_name: chill-sheep-484
+run_uuid: 74573926e24a4f278229717ff3f74921
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727710125034
+status: 4
+tags: []
+user_id: martina

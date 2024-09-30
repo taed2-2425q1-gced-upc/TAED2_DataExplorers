@@ -1,0 +1,15 @@
+artifact_uri: file:///home/martina/Documents/TAED2/Lab/TAED2_DataExplorers/mlruns/880038647904291264/3933527e0c20444ca7ccf92061caa7f4/artifacts
+end_time: 1727710241031
+entry_point_name: ''
+experiment_id: '880038647904291264'
+lifecycle_stage: active
+run_id: 3933527e0c20444ca7ccf92061caa7f4
+run_name: spiffy-kite-447
+run_uuid: 3933527e0c20444ca7ccf92061caa7f4
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727710236895
+status: 4
+tags: []
+user_id: martina

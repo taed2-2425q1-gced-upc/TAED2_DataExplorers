@@ -90,6 +90,11 @@ x_pred_path = Path(prepared_folder_path / "x_pred.npy")
 y_train_path = Path(prepared_folder_path / "y_train.npy")
 y_test_path = Path(prepared_folder_path / "y_test.npy")
 
+x_train = x_train[:1000]  # Use 1000 samples
+y_train = y_train[:1000]
+x_test = x_test[:200]  # Use 200 samples
+y_test = y_test[:200]
+
 print('Data correcly processed.')
 
 

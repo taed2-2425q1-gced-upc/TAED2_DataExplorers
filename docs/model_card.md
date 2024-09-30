@@ -22,7 +22,7 @@ The model was introduced on Kaggle, and the original implementation is available
 - **Shared by:** [Kaggle](https://www.kaggle.com/)
 - **Model type:** Supervised Learning, CNN
 - **Language(s) (NLP):** Not Applicable
-- **License:** 
+- **License:** Apache 2.0
 - **Finetuned from model [optional]:**
 
 ### Model Sources [optional]
@@ -66,23 +66,23 @@ While the model is designed for landscape image classification, certain uses are
 
 The model's performance is influenced by several factors, leading to potential biases and limitations:
 
-- Dataset bias: The training dataset may not cover the full diversity of landscape types, leading to underperformance on classes that are underrepresented. 
+- **Dataset bias**: The training dataset may not cover the full diversity of landscape types, leading to underperformance on classes that are underrepresented. 
 
-- Image quality: The classification accuracy can be significantly impacted by the quality of the input images. High-resolution images with clear details tend to yield better predictions, while low-resolution images or those with compression artifacts may lead to misclassification.
+- **Image quality**: The classification accuracy can be significantly impacted by the quality of the input images. High-resolution images with clear details tend to yield better predictions, while low-resolution images or those with compression artifacts may lead to misclassification.
 
-- Environmental conditions: Variability in environmental conditions at the time the images were captured can also affect performance. Factors such as the weather (cloud cover, rain, or snow) can hide important visual features in landscape images, as well as seasonality, which alter the appearance of these scenes, potentially leading to confusion in classification.
+- **Environmental conditions**: Variability in environmental conditions at the time the images were captured can also affect performance. Factors such as the weather (cloud cover, rain, or snow) can hide important visual features in landscape images, as well as seasonality, which alter the appearance of these scenes, potentially leading to confusion in classification.
 
-- Limitations in generalization: The model may struggle to generalize effectively to new landscape types that differ from those seen during training, which can limit its applicability in real-world scenarios.
+- **Limitations in generalization**: The model may struggle to generalize effectively to new landscape types that differ from those seen during training, which can limit its applicability in real-world scenarios.
 
 ### Recommendations
 
 To mitigate these biases and limitations, it is advisable to:
 
-- Diversify training data: Include a wider variety of landscape types and conditions in the training dataset to improve the model's robustness.
+- **Diversify training data**: Include a wider variety of landscape types and conditions in the training dataset to improve the model's robustness.
 
-- Enhance image quality: Use high-resolution images and consider pre-processing techniques to enhance quality and reduce artifacts.
+- **Enhance image quality**: Use high-resolution images and consider pre-processing techniques to enhance quality and reduce artifacts.
 
-- Consider environmental context: Be aware of the conditions under which images are taken and evaluate how these factors may influence predictions.
+- **Consider environmental context**: Be aware of the conditions under which images are taken and evaluate how these factors may influence predictions.
 
 
 ## How to Get Started with the Model
@@ -94,21 +94,27 @@ Use the code below to get started with the model.
 
 ### Training Data
 
-The model was trained on a diverse dataset of landscape images, containing buildings, forests, glaciers, mountains, seas, and streets. For more details, please refer to the dataset card (posar link).
+The model was trained on the Intel Image Classification dataset, which contains over 14000 landscape images categorized into six classes: buildings, forests, glaciers, mountains, seas, and streets. For more details, please refer to the [dataset card](https://github.com/taed2-2425q1-gced-upc/TAED2_DataExplorers/blob/main/docs/dataset_card.md).
 
 ### Training Procedure
 
 
-#### Preprocessing [optional]
+#### Preprocessing: 
+The preprocessing workflow establishes paths for training, testing, and prediction datasets, and maps each landscape category to a numeric code. It resizes all images to 100x100 pixels, collects images and labels into lists, and converts these lists into Numpy arrays, which are then saved in `.npy` format for efficient future use.
 
-
+#### Training overview:
+The `train.py` script trains a convolutional neural network (CNN) for image classification using MLflow for experiment tracking and logging. It loads preprocessed training data from `.npy` files, constructs and compiles the CNN, and tracks carbon emissions during training. After training, the model is saved as a pickle file for future use.
 
 #### Training Hyperparameters
 
+- `Batch Size`: 64
+- `Epochs`: 40
+- `Optimizer`: Adam
+- `Loss Function`: Sparse Categorical Crossentropy
+- `Metrics`: Accuracy
 
-
-#### Speeds, Sizes, Times [optional]
-
+#### Additional notes:
+- **Emissions Tracking**: The emissions tracker ensures the environmental impact of the model training process is monitored and logged, promoting awareness of carbon footprints in machine learning practices.
 
 ## Evaluation
 
@@ -118,29 +124,22 @@ The model was trained on a diverse dataset of landscape images, containing build
 
 #### Testing Data
 
-<!-- This should link to a Dataset Card if possible. -->
-
-{{ testing_data | default("[More Information Needed]", true)}}
+The model was evaluated using a validation dataset consisting of landscape images that were not part of the training set. The dataset includes images from all six categories: buildings, forests, glaciers, mountains, seas, and streets
 
 #### Factors
 
-<!-- These are the things the evaluation is disaggregating by, e.g., subpopulations or domains. -->
-
-{{ testing_factors | default("[More Information Needed]", true)}}
+Key factors influencing the evaluation results include the quality of the input images, variations in lighting and environmental conditions, and the diversity of landscapes represented in the validation dataset. Additionally, not all categories have the same number of images, which can impact the balance of the dataset. The inherent biases in the training data can also affect how well the model generalizes to unseen data.
 
 #### Metrics
 
-<!-- These are the evaluation metrics being used, ideally with a description of why. -->
-
-{{ testing_metrics | default("[More Information Needed]", true)}}
+The model's performance is measured using accuracy as the primary metric, which reflects the proportion of correctly classified images. Accuracy is particularly useful in this context because it provides a straightforward measure of how often the model makes correct predictions across all classes. Other metrics such as mean absolute error (MAE) and mean squared error (MSE) may also be utilized to provide a comprehensive assessment of the model's predictive capabilities.
 
 ### Results
 
-{{ results | default("[More Information Needed]", true)}}
-
+The evaluation resulted in an accuracy score of [Accuracy Value Here]. This score indicates how well the model classifies landscape images into the correct categories. While accuracy gives a good overview of performance, it might not show all the model's strengths and weaknesses, especially if the dataset is imbalanced or if certain classes are more challenging to classify than others. Future evaluations could include more metrics, like a confusion matrix, to better understand misclassifications and identify fututre improvements of the model.
 #### Summary
 
-{{ results_summary | default("", true) }}
+Overall, the model demonstrates a good performance, effectively classifying landscape images across most categories. However, there may be limitations in accurately identifying certain categories, particularly those with similar features or lower representation in the dataset. Enhancing dataset diversity and refining the model architecture could lead to better classification results in future iterations.
 
 ## Model Examination [optional]
 
@@ -164,19 +163,21 @@ Carbon emissions can be estimated using the [Machine Learning Impact calculator]
 
 ### Model Architecture and Objective
 
-{{ model_specs | default("[More Information Needed]", true)}}
+The model uses a CNN architecture designed to classify six landscape categories, including buildings, forests, glaciers, mountains, seas, and streets. It consists of multiple convolutional layers that extract spatial hierarchies of features, followed by max-pooling layers to reduce dimensionality and improve computational efficiency. Dense layers are included towards the end of the architecture, culminating in a softmax output layer that enables multi-class classification by providing probability distributions over the six classes.
 
 ### Compute Infrastructure
 
-{{ compute_infrastructure | default("[More Information Needed]", true)}}
-
 #### Hardware
 
-{{ hardware_requirements | default("[More Information Needed]", true)}}
+- **GPU**: Can be trained using any GPU platform (e.g., NVIDIA Tesla P100, V100, or higher)
+- **RAM**: 16GB or more recommended for faster training
+- **Storage**: Sufficient local or cloud storage required to handle the dataset and model files
 
 #### Software
 
-{{ software | default("[More Information Needed]", true)}}
+- **Keras** (TensorFlow backend): For deep learning model building
+- **Python**
+- **OpenCV**: For image processing
 
 ## Citation [optional]
 
@@ -184,17 +185,28 @@ Carbon emissions can be estimated using the [Machine Learning Impact calculator]
 
 **BibTeX:**
 
-{{ citation_bibtex | default("[More Information Needed]", true)}}
+```
+@misc{Intel_Image_Classification_CNN,
+  author = {Ezzeldean, Mohammed},
+  title = {Intel Image Classification CNN},
+  year = {2024},
+  publisher = {Kaggle},
+  url = {https://www.kaggle.com/code/mohammedezzeldean/intel-image-classification-cnn}
+}
+```
 
 **APA:**
 
-{{ citation_apa | default("[More Information Needed]", true)}}
+Ezzeldean, M. (2024). *Intel Image Classification CNN*. Kaggle. https://www.kaggle.com/code/mohammedezzeldean/intel-image-classification-cnn
 
 ## Glossary [optional]
 
-<!-- If relevant, include terms and calculations in this section that can help readers understand the model or model card. -->
+- **Convolutional Neural Network (CNN)**: A class of deep neural networks commonly used in image recognition and processing tasks, which uses a mathematical operation called convolution to extract features from images.
+- **Epoch**: One complete cycle through the entire training dataset during the training process of a machine learning model.
+- **Batch Size**: The number of training samples utilized in one iteration of the model's learning process.
+- **Sparse Categorical Crossentropy**: A loss function used in multi-class classification problems that measures the performance of a model whose output is a probability value between 0 and 1.
+- **MLflow**: An open-source platform for managing the machine learning lifecycle, including experimentation, reproducibility, and deployment.
 
-{{ glossary | default("[More Information Needed]", true)}}
 
 ## More Information [optional]
 

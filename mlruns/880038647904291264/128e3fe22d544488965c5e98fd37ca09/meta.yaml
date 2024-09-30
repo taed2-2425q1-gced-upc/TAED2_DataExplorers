@@ -1,0 +1,15 @@
+artifact_uri: file:///home/martina/Documents/TAED2/Lab/TAED2_DataExplorers/mlruns/880038647904291264/128e3fe22d544488965c5e98fd37ca09/artifacts
+end_time: 1727709783502
+entry_point_name: ''
+experiment_id: '880038647904291264'
+lifecycle_stage: active
+run_id: 128e3fe22d544488965c5e98fd37ca09
+run_name: likeable-slug-935
+run_uuid: 128e3fe22d544488965c5e98fd37ca09
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727709778884
+status: 4
+tags: []
+user_id: martina

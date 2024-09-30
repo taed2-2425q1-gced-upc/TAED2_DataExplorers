@@ -20,8 +20,8 @@ stages:
       nfiles: 14034
     - path: src/features/preprocessing.py
       hash: md5
-      md5: 50395213b11d5b4dbfa8274c637a1de9
-      size: 2866
+      md5: f852772af8321f0b8dbf3fe27458812c
+      size: 3000
     outs:
     - path: data/processed/x_pred.npy
       hash: md5
@@ -29,17 +29,61 @@ stages:
       size: 219030128
     - path: data/processed/x_test.npy
       hash: md5
-      md5: c47d2e0e6651d5999d661995d4dce5b0
-      size: 90000128
+      md5: 5145cbed99b352efc87dd57fa6653044
+      size: 6000128
     - path: data/processed/x_train.npy
       hash: md5
-      md5: b77542a68e6c9733e1c2d4d0efd3a20d
-      size: 421020128
+      md5: 19a334a1d4a3912de56a85bd9008424e
+      size: 30000128
     - path: data/processed/y_test.npy
       hash: md5
-      md5: 86915c4fd0cc5fedb8b59dd6526ea341
-      size: 24128
+      md5: 1a71da4e3039081c21bb0a44466c9ac7
+      size: 1728
     - path: data/processed/y_train.npy
       hash: md5
-      md5: a6dbf66e4fe058810d9893f8c6b3d836
-      size: 112400
+      md5: e6dd00d298c2bb5edc8c8fb909785f96
+      size: 8128
+  train:
+    cmd: python3 -m src.models.train
+    deps:
+    - path: data/processed/x_train.npy
+      hash: md5
+      md5: 19a334a1d4a3912de56a85bd9008424e
+      size: 30000128
+    - path: data/processed/y_train.npy
+      hash: md5
+      md5: e6dd00d298c2bb5edc8c8fb909785f96
+      size: 8128
+    - path: src/models/train.py
+      hash: md5
+      md5: 7f9882395951c131a54962f009419772
+      size: 3072
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: eeb671772d65440b72ec1c1dd377821c
+      size: 8147831
+  evaluate:
+    cmd: python3 -m src.models.evaluate
+    deps:
+    - path: data/processed/x_test.npy
+      hash: md5
+      md5: 5145cbed99b352efc87dd57fa6653044
+      size: 6000128
+    - path: data/processed/y_test.npy
+      hash: md5
+      md5: 1a71da4e3039081c21bb0a44466c9ac7
+      size: 1728
+    - path: models/model.pkl
+      hash: md5
+      md5: eeb671772d65440b72ec1c1dd377821c
+      size: 8147831
+    - path: src/models/evaluate.py
+      hash: md5
+      md5: 26cf82b4715972effd0afebb049ed0c9
+      size: 2239
+    outs:
+    - path: metrics/scores.json
+      hash: md5
+      md5: ce3618d86a47cfba7d4c112ac4a2d677
+      size: 23

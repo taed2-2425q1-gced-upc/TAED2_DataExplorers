@@ -1,0 +1,15 @@
+artifact_uri: file:///home/martina/Documents/TAED2/Lab/TAED2_DataExplorers/mlruns/880038647904291264/9bc972ff05fe4b6482ed55bdcd088c2b/artifacts
+end_time: 1727710390451
+entry_point_name: ''
+experiment_id: '880038647904291264'
+lifecycle_stage: active
+run_id: 9bc972ff05fe4b6482ed55bdcd088c2b
+run_name: nimble-midge-254
+run_uuid: 9bc972ff05fe4b6482ed55bdcd088c2b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727710386298
+status: 3
+tags: []
+user_id: martina
