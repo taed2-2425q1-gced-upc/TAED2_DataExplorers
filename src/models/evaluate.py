@@ -24,7 +24,6 @@ def load_validation_data(input_folder_path: Path):
     x_valid = np.load(Path(input_folder_path / "x_test.npy"))
     y_valid = np.load(Path(input_folder_path / "y_test.npy"))
 
-
     return x_valid, y_valid
 
 
@@ -44,8 +43,8 @@ def evaluate_model(model_file_name, x, y):
         model = pickle.load(pickled_model)
 
         # Compute accuracy using the model
-    accuracy = model.evaluate(x, y)
-    return accuracy
+    loss, accuracy = model.evaluate(x, y)
+    return loss, accuracy
 
 
 if __name__ == "__main__":
@@ -59,9 +58,7 @@ if __name__ == "__main__":
 
     with mlflow.start_run():
         # Load the model
-        accuracy= evaluate_model(
-            "model.pkl", x_valid, y_valid
-        )
+        loss, accuracy = evaluate_model("model.pkl", x_valid, y_valid)
 
         # Save the evaluation metrics to a dictionary to be reused later
         metrics_dict = {"accuracy": accuracy}
