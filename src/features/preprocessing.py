@@ -49,7 +49,7 @@ def process_images(file, x, y, s, needs_y=False, folder=None):
     if needs_y:
         y.append(code[folder])
 
-def read_and_process_predictions(predict_path, x, y):
+def read_and_prepare_predictions(predict_path, x, y):
     files = gb.glob(pathname= str(predict_path / '*.jpg'))
     for file in files: 
         process_images(file, x, y, 100) 
@@ -64,7 +64,7 @@ def read_and_prepare_images(path, x, y):
     return x, y
 
 
-def preprocess_image(data):
+def list_to_nparray(data):
     return np.array(data)
 
 
@@ -81,13 +81,13 @@ def main():
 
     x_train, y_train = read_and_prepare_images(train_path, [], [])
     x_test, y_test = read_and_prepare_images(test_path, [], [])
-    x_pred = read_and_process_predictions(predict_path, [], [])
+    x_pred = read_and_prepare_predictions(predict_path, [], [])
 
-    x_train_preprocessed = preprocess_image(x_train)
-    x_test_preprocessed = preprocess_image(x_test)
-    x_pred_preprocessed = preprocess_image(x_pred)
-    y_train_preprocessed = preprocess_image(y_train)
-    y_test_preprocessed = preprocess_image(y_test)
+    x_train_preprocessed = list_to_nparray(x_train)
+    x_test_preprocessed = list_to_nparray(x_test)
+    x_pred_preprocessed = list_to_nparray(x_pred)
+    y_train_preprocessed = list_to_nparray(y_train)
+    y_test_preprocessed = list_to_nparray(y_test)
 
     x_train_path = Path(prepared_folder_path / "x_train.npy")
     x_test_path = Path(prepared_folder_path / "x_test.npy")
