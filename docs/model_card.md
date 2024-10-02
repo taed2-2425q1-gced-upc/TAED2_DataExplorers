@@ -23,7 +23,6 @@ The model was introduced on Kaggle, and the original implementation is available
 - **Model type:** Supervised Learning, CNN
 - **Language(s) (NLP):** Not Applicable
 - **License:** Apache 2.0
-- **Finetuned from model [optional]:**
 
 ### Model Sources [optional]
 
