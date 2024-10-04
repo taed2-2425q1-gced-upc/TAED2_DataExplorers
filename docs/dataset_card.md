@@ -129,6 +129,24 @@ There is no specific license mentioned for the dataset, but users are encouraged
   url = {https://www.kaggle.com/datasets/puneet6060/intel-image-classification/data}
 }
 ```
+### Dataset Card Authors
+Martina Albà González
+
+Sara Alonso del Hoyo
+
+Marc Colomer Xaus
+
+Carlota Gozalbo Barriga
+
+### Datset Card Contact
+
+martina.alba@estudiantat.upc.edu
+
+sara.alonso.del.hoyo@estudiantat.upc.edu
+
+marc.colomer.xaus@estudiantat.upc.edu
+
+carlota.gozalbo@estudiantat.upc.edu
 
 ### Contributions
 
