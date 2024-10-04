@@ -47,7 +47,7 @@ While the landscape classification model offers a range of applications, there a
 
 - **High-resolution detail analysis:** The model may not perform well in tasks requiring the analysis of details within landscapes, such as identifying individual plants or animals. For such applications, more specialized models focusing on high-resolution images or object detection might be necessary.
 
-- **Integration with Non-Visual Data:** The model focuses solely on image classification and does not handle non-visual data types, such as textual information or numerical datasets. Integrating it into systems requiring other types of data would need additional models or tools capable of processing those data types.
+- **Integration with non-visual data:** The model focuses solely on image classification and does not handle non-visual data types, such as textual information or numerical datasets. Integrating it into systems requiring other types of data would need additional models or tools capable of processing those data types.
 
 
 ## Bias, Risks, and Limitations
@@ -81,20 +81,24 @@ Use the code below to get started with the model.
 
 import numpy as np
 import cv2
-from keras.models import load_model
+import pickle
 
 # Load the model
-model = load_model('path_to_your_model.h5')
+with open('path_to_the_model.pkl', 'rb') as f:
+    model = pickle.load(f)
 
-# Prepare your image
+# Prepare the image
 image = cv2.imread('path/to/your/image.jpg')
+image = cv2.resize(image, (100, 100)) / 255.0   # Resize and normalize
+image = np.expand_dims(image, axis=0)           # Expand dimensions
 
 # Make predictions
 predictions = model.predict(image)
+predicted_class = np.argmax(predictions)
 
-greet()
+print(predicted_class)
+
 ```
-
 
 ## Training Details
 
@@ -109,7 +113,7 @@ The model was trained on the Intel Image Classification dataset, which contains 
 The preprocessing workflow establishes paths for training, testing, and prediction datasets, and maps each landscape category to a numeric code. It resizes all images to 100x100 pixels, collects images and labels into lists, and converts these lists into Numpy arrays, which are then saved in `.npy` format for efficient future use.
 
 #### Training overview:
-The `train.py` script trains a convolutional neural network (CNN) for image classification using MLflow for experiment tracking and logging. It loads preprocessed training data from `.npy` files, constructs and compiles the CNN, and tracks carbon emissions during training. After training, the model is saved as a pickle file for future use.
+The `train.py` script trains a Convolutional Neural Network (CNN) for image classification using MLflow for experiment tracking and logging. It loads preprocessed training data from '.npy' files, constructs and compiles the CNN, and tracks carbon emissions during training. After training, the model is saved as a pickle file for future use.
 
 #### Training Hyperparameters
 
@@ -123,8 +127,6 @@ The `train.py` script trains a convolutional neural network (CNN) for image clas
 - **Emissions Tracking**: The emissions tracker ensures the environmental impact of the model training process is monitored and logged, promoting awareness of carbon footprints in machine learning practices.
 
 ## Evaluation
-
-<!-- This section describes the evaluation protocols and provides the results. -->
 
 ### Testing Data, Factors & Metrics
 
