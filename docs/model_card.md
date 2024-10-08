@@ -118,8 +118,8 @@ The `train.py` script trains a Convolutional Neural Network (CNN) for image clas
 #### Training Hyperparameters
 
 - `Batch Size`: 64
-- `Epochs`: 40
-- `Optimizer`: Adam
+- `Epochs`: 20
+- `Optimizer`: Adam with learning rate 0.0001
 - `Loss Function`: Sparse Categorical Crossentropy
 - `Metrics`: Accuracy
 
