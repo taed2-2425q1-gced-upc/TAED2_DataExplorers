@@ -72,7 +72,7 @@ def model():
         (Path(RAW_DATA_DIR/ "seg_test" / "buildings"/ "20231.jpg"), "buildings"),
         (Path(RAW_DATA_DIR/ "seg_test" / "forest"/ "20315.jpg"), "forest"),
         (Path(RAW_DATA_DIR/ "seg_test" / "glacier"/ "20386.jpg"), "glacier"),
-        (Path(RAW_DATA_DIR/ "seg_test" / "mountain"/ "20479.jpg"), "mountain"),
+        (Path(RAW_DATA_DIR/ "seg_test" / "mountain"/ "20058.jpg"), "mountain"),
         (Path(RAW_DATA_DIR/ "seg_test" / "sea"/ "20236.jpg"), "sea"),
         (Path(RAW_DATA_DIR/ "seg_test" / "street"/ "20080.jpg"), "street"),
     ],
