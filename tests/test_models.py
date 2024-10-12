@@ -1,13 +1,13 @@
 import pickle
 from pathlib import Path
 import numpy as np
+from unittest.mock import patch, MagicMock
+import pandas as pd
 
 import pytest
-from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 from src.config import MODELS_DIR, RAW_DATA_DIR
 from src.features import preprocessing
-
 
 @pytest.fixture
 def model():
@@ -26,11 +26,10 @@ def model():
     ],
 )
 def test_model_results(model, sample, expected):
-    x_processed_image = preprocessing.read_and_process_predictions(sample, [], [])
-    x_processed_image = preprocessing.preprocess_image(x_processed_image)
-    x_processed_image = np.expand_dims(x_processed_image, axis=0)
+    x_processed_image = preprocessing.process_images(sample, [], [], 100, needs_return=True)
+    x_processed_image = preprocessing.list_to_nparray(x_processed_image)
     prediction = model.predict(x_processed_image)
+    prediction_mapped = preprocessing.getcode(np.argmax(prediction))
 
-    assert prediction == expected
-
+    assert prediction_mapped == expected
 
