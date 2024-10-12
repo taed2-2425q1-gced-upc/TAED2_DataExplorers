@@ -28,7 +28,7 @@ def getcode(n) :
     for x , y in code.items(): 
         if n == y : 
             return x   
-      
+'''
 def count_image_sizes(path, mode):
     size = []
     if mode == 'pred':
@@ -40,14 +40,16 @@ def count_image_sizes(path, mode):
             image = plt.imread(file)
             size.append(image.shape)
     return pd.Series(size).value_counts()
+'''
 
-
-def process_images(file, x, y, s, needs_y=False, folder=None):
+def process_images(file, x, y, s, needs_y=False, folder=None, needs_return=False):
     image = cv2.imread(file)
     image_array = cv2.resize(image , (s,s))
     x.append(list(image_array))
     if needs_y:
         y.append(code[folder])
+    if needs_return:
+        return x
 
 def read_and_prepare_predictions(predict_path, x, y):
     files = gb.glob(pathname= str(predict_path / '*.jpg'))
@@ -78,7 +80,6 @@ def main():
     #print("Train image sizes:", count_image_sizes(train_path, 'train'))
     #print("Test image sizes:", count_image_sizes(test_path, 'test'))
     #print("Predict image sizes:", count_image_sizes(predict_path, 'pred'))
-
     x_train, y_train = read_and_prepare_images(train_path, [], [])
     x_test, y_test = read_and_prepare_images(test_path, [], [])
     x_pred = read_and_prepare_predictions(predict_path, [], [])
