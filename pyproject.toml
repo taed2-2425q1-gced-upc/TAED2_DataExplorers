@@ -51,9 +51,6 @@ pytest = "^8.3.3"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.coverage.run]
-omit = ["src/features/preprocessing.py", "src/models/evaluate.py", "src/models/train.py"]
-
 [tool.pytest.ini_options]
 pythonpath = "."
 testpaths = "tests"
