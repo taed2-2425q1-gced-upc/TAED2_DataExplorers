@@ -36,9 +36,9 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pandas = "^2.2.2"
+pandas = "<2.2.2"
 numpy = "^2.1.1"
-scikit-learn = "^1.5.2"
+scikit-learn = "<1.6.0"
 dvc = "^3.55.2"
 
 
@@ -50,3 +50,11 @@ pytest = "^8.3.3"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+omit = ["src/features/preprocessing.py", "src/models/evaluate.py", "src/models/train.py"]
+
+[tool.pytest.ini_options]
+pythonpath = "."
+testpaths = "tests"
+addopts = "--junitxml=out/tests-report.xml --cov=src --cov-report=html:reports/coverage"
