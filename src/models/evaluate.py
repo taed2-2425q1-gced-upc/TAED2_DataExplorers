@@ -1,11 +1,11 @@
+"""
+This script handles the evaluation of a trained image classification model using validation data.
+"""
 import json
 import pickle
 from pathlib import Path
 import numpy as np
 import mlflow
-import pandas as pd
-from sklearn.metrics import mean_absolute_error, mean_squared_error
-
 from src.config import METRICS_DIR, PROCESSED_DATA_DIR
 
 # Path to the models folder
@@ -44,8 +44,8 @@ def evaluate_model(model_file_name, x, y):
         model = pickle.load(pickled_model)
 
         # Compute accuracy using the model
-    accuracy = model.evaluate(x, y)
-    return accuracy
+    metrics = model.evaluate(x, y)
+    return metrics
 
 
 if __name__ == "__main__":
@@ -53,14 +53,14 @@ if __name__ == "__main__":
     Path("metrics").mkdir(exist_ok=True)
     metrics_folder_path = METRICS_DIR
 
-    x_valid, y_valid = load_validation_data(PROCESSED_DATA_DIR)
+    x_validation, y_validation = load_validation_data(PROCESSED_DATA_DIR)
 
     mlflow.set_experiment("image-classification")
 
     with mlflow.start_run():
         # Load the model
-        accuracy= evaluate_model(
-            "model.pkl", x_valid, y_valid
+        loss, accuracy = evaluate_model(
+            "model.pkl", x_validation, y_validation
         )
 
         # Save the evaluation metrics to a dictionary to be reused later
@@ -70,7 +70,7 @@ if __name__ == "__main__":
         mlflow.log_metrics(metrics_dict)
 
         # Save the evaluation metrics to a JSON file
-        with open(metrics_folder_path / "scores.json", "w") as scores_file:
+        with open(metrics_folder_path / "scores.json", "w", encoding="utf-8") as scores_file:
             json.dump(
                 metrics_dict,
                 scores_file,
@@ -78,3 +78,4 @@ if __name__ == "__main__":
             )
 
         print("Evaluation completed.")
+    
