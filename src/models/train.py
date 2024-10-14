@@ -1,16 +1,14 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import os
-import glob as gb
-import cv2
-import tensorflow as tf
-import pickle
+"""
+This module handles the training process for an image classification model using Keras and MLflow.
+"""
 from pathlib import Path
+import pickle
+import numpy as np
 import keras
 import mlflow
 import pandas as pd
-import yaml
 from codecarbon import EmissionsTracker
+
 from src.config import METRICS_DIR, MODELS_DIR, PROCESSED_DATA_DIR
 
 mlflow.set_experiment("image-classification")
@@ -42,23 +40,23 @@ with mlflow.start_run():
     # ============== #
 
     # Specify the model
-    s = 100
+    S = 100
     model = keras.models.Sequential([
-        keras.layers.Conv2D(200,kernel_size=(3,3),activation='relu',input_shape=(s,s,3)),
+        keras.layers.Conv2D(200,kernel_size=(3,3),activation='relu',input_shape=(S,S,3)),
         keras.layers.Conv2D(150,kernel_size=(3,3),activation='relu'),
         keras.layers.MaxPool2D(4,4),
-        keras.layers.Conv2D(120,kernel_size=(3,3),activation='relu'),    
-        keras.layers.Conv2D(80,kernel_size=(3,3),activation='relu'),    
+        keras.layers.Conv2D(120,kernel_size=(3,3),activation='relu'),
+        keras.layers.Conv2D(80,kernel_size=(3,3),activation='relu'),
         keras.layers.Conv2D(50,kernel_size=(3,3),activation='relu'),
         keras.layers.MaxPool2D(4,4),
-        keras.layers.Flatten() ,    
-        keras.layers.Dense(120,activation='relu') ,    
-        keras.layers.Dense(100,activation='relu') ,    
-        keras.layers.Dense(50,activation='relu') ,        
-        keras.layers.Dropout(rate=0.5) ,            
-        keras.layers.Dense(6,activation='softmax') ,    
+        keras.layers.Flatten(),
+        keras.layers.Dense(120,activation='relu'),
+        keras.layers.Dense(100,activation='relu'),
+        keras.layers.Dense(50,activation='relu'),
+        keras.layers.Dropout(rate=0.5),
+        keras.layers.Dense(6,activation='softmax'),
         ])
-    
+
     model.compile(optimizer ='adam',loss='sparse_categorical_crossentropy',metrics=['accuracy'])
 
     # Track the CO2 emissions of training the model
@@ -87,4 +85,3 @@ with mlflow.start_run():
 
     with open(MODELS_DIR / "model.pkl", "wb") as pickle_file:
         pickle.dump(model, pickle_file)
-

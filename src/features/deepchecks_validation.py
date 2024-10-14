@@ -1,3 +1,6 @@
+""""
+This script performs data validation and integrity checks on a dataset of images using Deepchecks.
+"""
 from deepchecks.vision import classification_dataset_from_directory
 from deepchecks.vision.suites import data_integrity, train_test_validation
 

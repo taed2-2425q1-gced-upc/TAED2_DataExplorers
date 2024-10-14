@@ -1,15 +1,22 @@
+"""
+This module contains functions for data preprocessing.
+"""
+
+import glob as gb
+import os
+import warnings
+from pathlib import Path
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import os
-import glob as gb
 import cv2
-import tensorflow as tf
-import keras
 from src.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
-import warnings
-from pathlib import Path
 warnings.filterwarnings('ignore')
+
+#This errors are ignored.
+#pylint: disable=E1101
+#pylint: disable=R0913
+#pylint: disable=R0917
 
 ################################## GLOBAL VARS ##################################
 input_folder_path = RAW_DATA_DIR
@@ -24,57 +31,79 @@ code = {'buildings':0 ,'forest':1,'glacier':2,'mountain':3,'sea':4,'street':5}
 
 ################################## FUNCTIONS ##################################
 
-def getcode(n) : 
-    for x , y in code.items(): 
-        if n == y : 
-            return x   
-      
+def getcode(n):
+    """
+    This function returns the label (as a string) corresponding to a given numeric code.
+    """
+    for x , y in code.items():
+        if n == y:
+            return x
+    return None
+
 def count_image_sizes(path, mode):
+    """
+    This function counts the occurrences of different image sizes in a specified directory.
+    """
     size = []
+    files = []
     if mode == 'pred':
         files = gb.glob(pathname= str(path / '*.jpg'))
-    for folder in  os.listdir(path) : 
+    for folder in  os.listdir(path):
         if mode != 'pred':
             files = gb.glob(pathname= str(path / folder / '*.jpg'))
-        for file in files: 
+        for file in files:
             image = plt.imread(file)
             size.append(image.shape)
     return pd.Series(size).value_counts()
 
-
 def process_images(file, x, y, s, needs_y=False, folder=None):
+    """
+    This function reads an image file, resizes it, and appends it to the provided lists.
+    """
     image = cv2.imread(file)
     image_array = cv2.resize(image , (s,s))
     x.append(list(image_array))
     if needs_y:
         y.append(code[folder])
 
-def read_and_prepare_predictions(predict_path, x, y):
-    files = gb.glob(pathname= str(predict_path / '*.jpg'))
-    for file in files: 
-        process_images(file, x, y, 100) 
+def read_and_prepare_predictions(pred_path, x, y):
+    """
+    This function reads and processes prediction images from the specified path.
+    """
+    files = gb.glob(pathname= str(pred_path / '*.jpg'))
+    for file in files:
+        process_images(file, x, y, 100)
     return x
 
 def read_and_prepare_images(path, x, y):
-    s = 100
-    for folder in os.listdir(path) : 
+    """
+    This function eads and processes images from the specified folder, appending their labels.
+    """
+    for folder in os.listdir(path):
         files = gb.glob(pathname= str(path / folder / '*.jpg'))
-        for file in files: 
+        for file in files:
             process_images(file, x, y, 100, True, folder)
     return x, y
 
-
 def list_to_nparray(data):
+    """
+    This function converts a list into a NumPy array.
+    """
     return np.array(data)
 
-
 def save_preprocessing(path, data_preprocessed):
+    """
+    This function saves preprocessed data as a NumPy file.
+    """
     np.save(path, data_preprocessed)
 
 
 ################################## MAIN ##################################
 
 def main():
+    """
+    Main function for preprocessing image data.
+    """
     #print("Train image sizes:", count_image_sizes(train_path, 'train'))
     #print("Test image sizes:", count_image_sizes(test_path, 'test'))
     #print("Predict image sizes:", count_image_sizes(predict_path, 'pred'))
@@ -111,4 +140,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
