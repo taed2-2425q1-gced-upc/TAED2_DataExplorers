@@ -1,5 +1,5 @@
 """
-This module handles the training process for the model.
+This module handles the training process for an image classification model using Keras and MLflow.
 """
 from pathlib import Path
 import pickle

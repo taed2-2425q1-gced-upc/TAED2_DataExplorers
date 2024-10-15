@@ -1,9 +1,3 @@
----
-# For reference on model card metadata, see the spec: https://github.com/huggingface/hub-docs/blob/main/modelcard.md?plain=1
-# Doc / guide: https://huggingface.co/docs/hub/model-cards
-{{ card_data }}
----
-
 # Model Card for Landscape Image Classification Model
 
 This model is designed to classify landscape images into predefined categories such as buildings, forests, glaciers, mountains, seas, and streets.
@@ -21,11 +15,9 @@ The model was introduced on Kaggle, and the original implementation is available
 - **Developed by:** Mohammed Ezzeldean
 - **Shared by:** [Kaggle](https://www.kaggle.com/)
 - **Model type:** Supervised Learning, CNN
-- **Language(s) (NLP):** Not Applicable
 - **License:** Apache 2.0
-- **Finetuned from model [optional]:**
 
-### Model Sources [optional]
+### Model Sources
 
 - **Repository:** [Kaggle Intel Image Classification CNN](https://www.kaggle.com/code/mohammedezzeldean/intel-image-classification-cnn)
 
@@ -34,33 +26,29 @@ The model was introduced on Kaggle, and the original implementation is available
 
 ### Direct Use
 
-This model can be used directly for classifying landscape images without the need for extensive fine-tuning or integration into a larger system. Users can simply input images, and the model will return the predicted class label corresponding to the landscape depicted. Below is a simple example of how to use the model:
+This model can be used directly for classifying landscape images without the need for extensive fine-tuning or integration into a larger system. Users can simply input images, and the model will return the predicted class label corresponding to the landscape depicted. Some direct uses are:
 
-```python
+- **Detection of potential anomalies:** The model can identify unusual features in landscape images, such as changes in vegetation or land erosion, which may indicate the risk of natural disasters. This capability contributes to disaster prevention efforts, helping organizations respond to mitigate loss of life and property.
 
-import numpy as np
-import cv2
-from keras.models import load_model
+- **Wildlife conservation:** Implement the model in conservation efforts to categorize and analyze images taken in natural habitats. This helps studying wildlife distribution, monitoring endangered species, and ensuring habitat preservation by understanding the ecosystems.
+  
 
-# Load the model
-model = load_model('path_to_your_model.h5')
+### Downstream Use
 
-# Prepare your image
-image = cv2.imread('path/to/your/image.jpg')
+The model can also be integrated into larger applications or systems for more complex tasks. For instance, it can be fine-tuned on specific subsets of data or incorporated into an automated pipeline for processing large datasets of landscape images. Some potential downstream uses include:
 
-# Make predictions
-predictions = model.predict(image)
+- **Fine-tuning for specific domains:** The model can be adapted to classify specialized subsets of landscape images, such as agricultural fields, urban areas, or protected natural reserves. Fine-tuning allows users to enhance accuracy for specific applications, ensuring that the model meets the correct needs.
 
-greet()
-```
-
-### Downstream Use [optional]
-
-The model can also be integrated into larger applications or systems for more complex tasks. For instance, it can be fine-tuned on specific subsets of data or incorporated into an automated pipeline for processing large datasets of landscape images.
+- **Automated image processing pipelines:** By integrating the model into automated workflows, users can ease the process of analyzing large amounts of landscape images. This is particularly beneficial for organizations involved in environmental monitoring, or large-scale agricultural assessments, enabling quicker decision-making based on real-time data.
 
 ### Out-of-Scope Use
 
-While the model is designed for landscape image classification, certain uses are not recommended due to potential inaccuracies or ethical concerns. Using the model to classify images that do not contain landscapes can lead to poor performance and misleading results. Low-quality or distorted images may also produce unreliable predictions, therefore users should ensure image quality before processing. Finally, avoid using the model in contexts where it may reinforce stereotypes or biases about certain landscapes, which could lead to unintended negative consequences.
+While the landscape classification model offers a range of applications, there are specific uses for which it may not be suitable or effective. Understanding these limitations helps users manage expectations and identify appropriate alternatives. Some out-of-scope uses include:
+
+- **High-resolution detail analysis:** The model may not perform well in tasks requiring the analysis of details within landscapes, such as identifying individual plants or animals. For such applications, more specialized models focusing on high-resolution images or object detection might be necessary.
+
+- **Integration with non-visual data:** The model focuses solely on image classification and does not handle non-visual data types, such as textual information or numerical datasets. Integrating it into systems requiring other types of data would need additional models or tools capable of processing those data types.
+
 
 ## Bias, Risks, and Limitations
 
@@ -89,6 +77,28 @@ To mitigate these biases and limitations, it is advisable to:
 
 Use the code below to get started with the model.
 
+```python
+
+import numpy as np
+import cv2
+import pickle
+
+# Load the model
+with open('path_to_the_model.pkl', 'rb') as f:
+    model = pickle.load(f)
+
+# Prepare the image
+image = cv2.imread('path/to/your/image.jpg')
+image = cv2.resize(image, (100, 100)) / 255.0   # Resize and normalize
+image = np.expand_dims(image, axis=0)           # Expand dimensions
+
+# Make predictions
+predictions = model.predict(image)
+predicted_class = np.argmax(predictions)
+
+print(predicted_class)
+
+```
 
 ## Training Details
 
@@ -103,13 +113,13 @@ The model was trained on the Intel Image Classification dataset, which contains 
 The preprocessing workflow establishes paths for training, testing, and prediction datasets, and maps each landscape category to a numeric code. It resizes all images to 100x100 pixels, collects images and labels into lists, and converts these lists into Numpy arrays, which are then saved in `.npy` format for efficient future use.
 
 #### Training overview:
-The `train.py` script trains a convolutional neural network (CNN) for image classification using MLflow for experiment tracking and logging. It loads preprocessed training data from `.npy` files, constructs and compiles the CNN, and tracks carbon emissions during training. After training, the model is saved as a pickle file for future use.
+The `train.py` script trains a Convolutional Neural Network (CNN) for image classification using MLflow for experiment tracking and logging. It loads preprocessed training data from '.npy' files, constructs and compiles the CNN, and tracks carbon emissions during training. After training, the model is saved as a pickle file for future use.
 
 #### Training Hyperparameters
 
 - `Batch Size`: 64
-- `Epochs`: 40
-- `Optimizer`: Adam
+- `Epochs`: 20
+- `Optimizer`: Adam with learning rate 0.0001
 - `Loss Function`: Sparse Categorical Crossentropy
 - `Metrics`: Accuracy
 
@@ -117,8 +127,6 @@ The `train.py` script trains a convolutional neural network (CNN) for image clas
 - **Emissions Tracking**: The emissions tracker ensures the environmental impact of the model training process is monitored and logged, promoting awareness of carbon footprints in machine learning practices.
 
 ## Evaluation
-
-<!-- This section describes the evaluation protocols and provides the results. -->
 
 ### Testing Data, Factors & Metrics
 
