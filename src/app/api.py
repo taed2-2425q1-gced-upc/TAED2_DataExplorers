@@ -1,23 +1,27 @@
-"""Main script: it includes our API initialization and endpoints."""
+"""
+Main script: it includes our API initialization and endpoints.
+"""
 
+import numpy as np
 import logging
 import pickle
+import tempfile
 from contextlib import asynccontextmanager
 from http import HTTPStatus
-from typing import Dict, Union
+from typing import Dict
+from pathlib import Path
 
-import tensorflow as tf
-import tensorflow_hub as hub
 from codecarbon import track_emissions
-from fastapi import FastAPI, HTTPException, UploadFile
+from fastapi import FastAPI, UploadFile
 
-from src.app.schemas import IrisPredictionPayload, IrisType
-from src.config import METRICS_DIR, MODELS_DIR
+from src.config import METRICS_DIR
+from src.features import preprocessing
+MODELS_FOLDER_PATH = Path("models")
 
 # Initialize the dictionary to group models by "tabular" or "image" and then by model type
-model_wrappers_dict: Dict[str, Dict[str, dict]] = {"tabular": {}, "image": {}}
+model_wrappers_dict: Dict[str, Dict[str, dict]] = {"image": {}}
 
-
+'''
 def file_to_image(file: bytes):
     """
     Reads an image file and formats it for the model.
@@ -33,42 +37,32 @@ def file_to_image(file: bytes):
     """
     image = tf.io.decode_image(file, channels=3, dtype=tf.float32)
     return tf.image.resize(image, [224, 224])
-
+'''
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Loads all pickled models found in `MODELS_DIR` and adds them to `models_list`"""
 
-    model_paths = [
-        filename
-        for filename in MODELS_DIR.iterdir()
-        if filename.suffix == ".pkl" and filename.stem.startswith("iris")
-    ]
+    with open(MODELS_FOLDER_PATH / "model.pkl", "rb") as pickled_model:
+        cv_model = pickle.load(pickled_model)
 
-    for path in model_paths:
-        with open(path, "rb") as file:
-            model_wrapper = pickle.load(file)
-            model_wrappers_dict["tabular"][model_wrapper["type"]] = model_wrapper
-
-    cv_model = hub.KerasLayer(
-        "https://www.kaggle.com/models/google/mobilenet-v3/TensorFlow2/small-075-224-classification/1"
-    )
-    model_wrappers_dict["image"]["mobilenet_v3"] = {
+    model_wrappers_dict["image"]["cnn"] = {
         "model": cv_model,
-        "type": "mobilenet_v3",
+        "type": "cnn",
     }
 
     yield
 
     # Clear the list of models to avoid memory leaks
-    del model_wrappers_dict["tabular"]
+    # del model_wrappers_dict["tabular"]
     del model_wrappers_dict["image"]
+   
 
 
 # Define application
 app = FastAPI(
-    title="Yet another Iris example",
-    description="This API lets you make predictions on the Iris dataset using a couple of simple models.",
+    title="Landscape image classifier",
+    description="This API lets you classify the Intel Image Classification dataset using a CNN model.",
     version="0.1",
     lifespan=lifespan,
 )
@@ -81,98 +75,14 @@ async def _index():
     response = {
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
-        "data": {"message": "Welcome to IRIS classifier! Please, read the `/docs`!"},
+        "data": {"message": "Welcome to the landscape image classifier! Please, read the `/docs`!"},
     }
-    return response
-
-
-@app.get("/models/tabular", tags=["Prediction"])
-def _get_tabular_models_list(model_type: Union[str, None] = None):
-    """Return the list of available models"""
-
-    if model_type is not None:
-        model = model_wrappers_dict["tabular"].get(model_type, None)
-        if model is None:
-            raise HTTPException(
-                status_code=HTTPStatus.BAD_REQUEST, detail="Type not found"
-            )
-        available_models = [
-            {
-                "type": model["type"],
-                "parameters": model["params"],
-                "accuracy": model["metrics"],
-            }
-        ]
-    else:
-        available_models = [
-            {
-                "type": model["type"],
-                "parameters": model["params"],
-                "accuracy": model["metrics"],
-            }
-            for model in model_wrappers_dict["tabular"].values()
-        ]
-
-    return {
-        "message": HTTPStatus.OK.phrase,
-        "status-code": HTTPStatus.OK,
-        "data": available_models,
-    }
-
-
-@app.post("/predict/tabular/{model_type}", tags=["Prediction"])
-@track_emissions(
-    project_name="iris-prediction",
-    measure_power_secs=1,
-    save_to_file=True,
-    output_dir=METRICS_DIR,
-)
-def _predict_tabular(model_type: str, payload: IrisPredictionPayload):
-    """Classifies Iris flowers based on sepal and petal sizes."""
-
-    # sklearn's `predict()` methods expect a 2D array of shape [n_samples, n_features]
-    # therefore, we need to convert our single data point into a 2D array
-    features = [
-        [
-            payload.sepal_length,
-            payload.sepal_width,
-            payload.petal_length,
-            payload.petal_width,
-        ]
-    ]
-
-    model_wrapper = model_wrappers_dict["tabular"].get(model_type, None)
-
-    if model_wrapper:
-        prediction = model_wrapper["model"].predict(features)
-        prediction = int(prediction[0])
-        predicted_type = IrisType(prediction).name
-
-        response = {
-            "message": HTTPStatus.OK.phrase,
-            "status-code": HTTPStatus.OK,
-            "data": {
-                "model-type": model_wrapper["type"],
-                "features": {
-                    "sepal_length": payload.sepal_length,
-                    "sepal_width": payload.sepal_width,
-                    "petal_length": payload.petal_length,
-                    "petal_width": payload.petal_width,
-                },
-                "prediction": prediction,
-                "predicted_type": predicted_type,
-            },
-        }
-    else:
-        raise HTTPException(
-            status_code=HTTPStatus.BAD_REQUEST, detail="Model not found"
-        )
     return response
 
 
 # Create and endpoint to classify an image
 @track_emissions(
-    project_name="cats-and-dogs-prediction",
+    project_name="landscape-prediction",
     measure_power_secs=1,
     save_to_file=True,
     output_dir=METRICS_DIR,
@@ -180,7 +90,7 @@ def _predict_tabular(model_type: str, payload: IrisPredictionPayload):
 @app.post("/predict/image/", tags=["Prediction"])
 async def _predict_image(file: UploadFile):
     """
-    Classifies ImageNet images using a pre-trained MobileNetV3 model.
+    Classifies landscape images using a pre-trained CNN model.
 
     Parameters
     ----------
@@ -189,14 +99,23 @@ async def _predict_image(file: UploadFile):
     """
     # Read the image file and format it for the model
     image_stream = await file.read()
-    image = file_to_image(image_stream)
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as tmp:
+        tmp.write(image_stream)
+        tmp_path = tmp.name  # Obtener la ruta del archivo temporal
+
+    try:
+        x_processed_image = preprocessing.process_images(tmp_path, [], [], 100, needs_return=True)
+        x_processed_image = preprocessing.list_to_nparray(x_processed_image)
+        cv_model = model_wrappers_dict["image"]["cnn"]["model"]
+        predictions = cv_model.predict(x_processed_image)
+        predictions_list = predictions.tolist()
+    except Exception as e:
+        return {"error": str(e)}
     await file.close()
 
-    cv_model = model_wrappers_dict["image"]["mobilenet_v3"]["model"]
-    predictions = cv_model(tf.expand_dims(image, axis=0))
-    predicted_label = tf.keras.applications.mobilenet_v3.decode_predictions(
-        predictions[:, 1:], top=1
-    )[0][0][1]
+    predicted_label = preprocessing.getcode(np.argmax(predictions))
+    print(predicted_label)
 
     logging.info("Predicted class %s", predicted_label)
 
@@ -204,8 +123,8 @@ async def _predict_image(file: UploadFile):
         "message": HTTPStatus.OK.phrase,
         "status-code": HTTPStatus.OK,
         "data": {
-            "model-type": "mobilenet_v3",
-            "prediction": predictions,
+            "model-type": "cnn",
+            "prediction": predictions_list,
             "predicted_class": predicted_label,
         },
     }
