@@ -40,23 +40,7 @@ def getcode(n):
             return x
     return None
 
-def count_image_sizes(path, mode):
-    """
-    This function counts the occurrences of different image sizes in a specified directory.
-    """
-    size = []
-    files = []
-    if mode == 'pred':
-        files = gb.glob(pathname= str(path / '*.jpg'))
-    for folder in  os.listdir(path):
-        if mode != 'pred':
-            files = gb.glob(pathname= str(path / folder / '*.jpg'))
-        for file in files:
-            image = plt.imread(file)
-            size.append(image.shape)
-    return pd.Series(size).value_counts()
-
-def process_images(file, x, y, s, needs_y=False, folder=None):
+def process_images(file, x, y, s, needs_y=False, folder=None, needs_return=False):
     """
     This function reads an image file, resizes it, and appends it to the provided lists.
     """
@@ -65,6 +49,8 @@ def process_images(file, x, y, s, needs_y=False, folder=None):
     x.append(list(image_array))
     if needs_y:
         y.append(code[folder])
+    if needs_return:
+        return x
 
 def read_and_prepare_predictions(pred_path, x, y):
     """
@@ -104,10 +90,6 @@ def main():
     """
     Main function for preprocessing image data.
     """
-    #print("Train image sizes:", count_image_sizes(train_path, 'train'))
-    #print("Test image sizes:", count_image_sizes(test_path, 'test'))
-    #print("Predict image sizes:", count_image_sizes(predict_path, 'pred'))
-
     x_train, y_train = read_and_prepare_images(train_path, [], [])
     x_test, y_test = read_and_prepare_images(test_path, [], [])
     x_pred = read_and_prepare_predictions(predict_path, [], [])
@@ -133,10 +115,6 @@ def main():
     save_preprocessing(y_test_path, y_test_preprocessed)
 
     print('Data correcly saved.')
-
-    #loaded_array = np.load(x_train_path, allow_pickle=True)
-    #print(loaded_array)
-
 
 if __name__ == "__main__":
     main()
