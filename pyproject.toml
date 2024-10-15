@@ -40,6 +40,8 @@ pandas = "<2.2.2"
 numpy = "^2.1.1"
 scikit-learn = "<1.6.0"
 dvc = "^3.55.2"
+fastapi = "^0.115.2"
+uvicorn = {extras = ["standard"], version = "^0.31.1"}
 
 
 [tool.poetry.group.dev.dependencies]
