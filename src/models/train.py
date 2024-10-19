@@ -2,7 +2,6 @@
 This module handles the training process for an image classification model using Keras and MLflow.
 """
 from pathlib import Path
-import pickle
 import numpy as np
 import keras
 import mlflow
@@ -83,5 +82,7 @@ with mlflow.start_run():
     # Save the model as a pickle file
     Path("models").mkdir(exist_ok=True)
 
-    with open(MODELS_DIR / "model.pkl", "wb") as pickle_file:
-        pickle.dump(model, pickle_file)
+    # with open(MODELS_DIR / "model.pkl", "wb") as pickle_file:
+    #     pickle.dump(model, pickle_file)
+    model_path = MODELS_DIR / "model.h5"
+    model.save(model_path)
