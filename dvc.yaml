@@ -19,13 +19,13 @@ stages:
     - data/processed/y_train.npy
     - src/models/train.py
     outs:
-    - models/model.pkl
+    - models/model.h5
   evaluate:
     cmd: python3 -m src.models.evaluate
     deps:
     - data/processed/x_test.npy
     - data/processed/y_test.npy
-    - models/model.pkl
+    - models/model.h5
     - src/models/evaluate.py
     metrics:
     - metrics/scores.json:
