@@ -2,7 +2,7 @@
 This script handles the evaluation of a trained image classification model using validation data.
 """
 import json
-import pickle
+import keras
 from pathlib import Path
 import numpy as np
 import mlflow
@@ -40,8 +40,10 @@ def evaluate_model(model_file_name, x, y):
         Tuple[float, float]: Tuple containing the MAE and MSE values.
     """
 
-    with open(MODELS_FOLDER_PATH / model_file_name, "rb") as pickled_model:
-        model = pickle.load(pickled_model)
+    # with open(MODELS_FOLDER_PATH / model_file_name, "rb") as pickled_model:
+    #     model = pickle.load(pickled_model)
+    model_path = MODELS_FOLDER_PATH / model_file_name
+    model = keras.models.load_model(model_path)
 
         # Compute accuracy using the model
     metrics = model.evaluate(x, y)
@@ -60,7 +62,7 @@ if __name__ == "__main__":
     with mlflow.start_run():
         # Load the model
         loss, accuracy = evaluate_model(
-            "model.pkl", x_validation, y_validation
+            "model.h5", x_validation, y_validation
         )
 
         # Save the evaluation metrics to a dictionary to be reused later
