@@ -13,7 +13,7 @@ from http import HTTPStatus
 from typing import Dict
 from pathlib import Path
 from codecarbon import EmissionsTracker
-from fastapi import FastAPI, UploadFile
+from fastapi import FastAPI, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
 
 
@@ -93,6 +93,8 @@ async def _predict_image(file: UploadFile):
     file : UploadFile
         The image to classify.
     """
+    if not file.content_type.startswith("image/"):
+        raise HTTPException(status_code=422, detail="Invalid file type.")
     # Read the image file and format it for the model
     image_stream = await file.read()
 
