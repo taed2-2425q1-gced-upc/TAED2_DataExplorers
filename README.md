@@ -142,5 +142,7 @@ After cloning the project, you’ll need to install the required dependencies an
 ``bash
 poetry install 
 ```
+
+### Downloading the data and model
 --------
 
