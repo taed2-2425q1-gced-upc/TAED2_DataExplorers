@@ -4,6 +4,7 @@ from unittest import mock
 import numpy as np
 from pathlib import Path
 from src.models import train
+from unittest.mock import patch, MagicMock
 
 from src.config import PROCESSED_DATA_DIR
 
@@ -18,6 +19,7 @@ def mock_paths():
         with mock.patch("src.models.train.MODELS_DIR", Path("/fake_model_dir")) as models_mock:
             with mock.patch("src.models.train.METRICS_DIR", Path("/fake_metrics_dir")) as metrics_mock:
                 yield processed_mock, models_mock, metrics_mock
+
 
 @pytest.fixture
 def mock_training_data():
@@ -78,9 +80,41 @@ def test_log_emissions_to_mlflow():
             mock_log_params.assert_called_once_with(emissions_params)
             mock_log_metrics.assert_called_once_with(emissions_metrics)
 
+
 def test_save_model(mock_paths):
     _, models_mock, _ = mock_paths
     model = mock.Mock() 
     with mock.patch.object(model, 'save') as mock_save: 
         train.save_model(model, models_mock / "model.h5")
         mock_save.assert_called_once_with(models_mock / "model.h5")
+
+def test_train_model(mock_paths):
+    # Arrange
+    processed_mock, _, _ = mock_paths
+    x_train = [np.array(np.zeros((100, 100, 3), dtype=np.uint8)), np.array(np.zeros((100, 100, 3), dtype=np.uint8)), np.array(np.zeros((100, 100, 3), dtype=np.uint8))]
+    y_train = [1, 2, 3]
+
+    # Mock functions
+    with patch("src.models.train.initialize_mlflow_experiment") as mock_initialize_mlflow_experiment, \
+         patch("src.models.train.load_data", return_value=(x_train, y_train)) as mock_load_data, \
+         patch("src.models.train.build_model") as mock_build_model, \
+         patch("src.models.train.track_emissions") as mock_track_emissions, \
+         patch("src.models.train.log_emissions_to_mlflow") as mock_log_emissions_to_mlflow, \
+         patch("src.models.train.save_model") as mock_save_model:
+        
+        # Simular el modelo retornado por build_model
+        mock_model = mock.Mock()
+        mock_build_model.return_value = mock_model
+        mock_track_emissions.return_value = {"emissions": 10.0}, {"cpu_power": 45}
+
+
+        # Act
+        train.train_model()
+
+        # Assert
+        mock_initialize_mlflow_experiment.assert_called_once()
+        mock_load_data.assert_called_once_with(mock_paths[0])  # El primer path es el de PROCESSED_DATA_DIR
+        mock_build_model.assert_called_once_with((100, 100, 3))  # (S, S, 3) es (100, 100, 3)
+        mock_track_emissions.assert_called_once()  # Verificar que track_emissions fue llamado
+        mock_log_emissions_to_mlflow.assert_called_once()  # Verificar que log_emissions_to_mlflow fue llamado
+        mock_save_model.assert_called_once_with(mock_model, mock_paths[1] / "model.h5")  # Guardar el modelo en la ruta esperada
