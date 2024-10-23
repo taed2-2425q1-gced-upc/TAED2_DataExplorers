@@ -14,16 +14,15 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 ## Project Organization
 
 ```
-├── LICENSE            <- Open-source license if one is chosen
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
+├── Makefile           <- Makefile with convenience commands like `make data` or `make train`.
 ├── README.md          <- The top-level README for developers using this project.
 ├── data
-│   ├── external       <- Data from third party sources.
-│   ├── interim        <- Intermediate data that has been transformed.
 │   ├── processed      <- The final, canonical data sets for modeling.
 │   └── raw            <- The original, immutable data dump.
 │
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details
+├── docs               <- A default mkdocs project; see www.mkdocs.org for details.
+│   ├── model_card     <- A document containing informaction of the model.
+│   └── dataset_card   <- A document containing informaction of the dataset.
 │
 ├── models             <- Trained and serialized models, model predictions, or model summaries
 │
