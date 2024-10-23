@@ -72,26 +72,26 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 ├── src                  <- <- Source code for the project, containing all application logic and modules.
 │   │
 │   ├── app                     
-│   │   ├── api.py                      <- Code to initialize FatAPI application
+│   │   └── api.py                      <- Code to initialize FatAPI application
 │   │
 │   ├── features                
 │   │   ├── deepchecks_validation.py    <- Code to perform data validation using Deepchecks
-│   │   ├── preprocessing.py            <- Code to preprocess data
+│   │   └── preprocessing.py            <- Code to preprocess data
 │   │   
 │   ├── models                 
 │   │   ├── evaluate.py                 <- Code to evaluate a trained image classification
-│   │   ├── train.py                    <- Code to train an image 
+│   │   └── train.py                    <- Code to train an image 
 │   │
 │   ├── __init__.py             
 │   │
 │   │
-│   ├── config.py               <-  Store useful variables and configuration
+│   └── config.py               <-  Store useful variables and configuration
 │
 └── tests                <- Directory containing unit tests for the project
     │
     ├── test_models.py          <- Code to test a model
     │
-    ├── test_preprocessing.py   <- Code to test the preprocessing
+    └── test_preprocessing.py   <- Code to test the preprocessing
 
 ```
 
