@@ -65,28 +65,29 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 
 ### Data Organization
 
-- Raw Data: The data/raw/ folder comprises three subdirectories: seg_train, seg_test, and seg_pred, containing unprocessed training, test and prediction images.
-- Processed Data: The data/processed/ directory contains .npy files formatted correctly for model input.
+- **Raw Data:** The `data/raw/` folder comprises three subdirectories: `seg_train`, `seg_test`, and `seg_pred`, containing unprocessed training, test and prediction images.
+- **Processed Data:** The `data/processed/` directory contains .npy files formatted correctly for model input.
 
 ### Model developement
 
-All these stages are included in the src/features/ and src/models/ foders.
+All these stages are included in the `src/features/` and `src/models/` foders.
 
-- Preprocessing: This stage involves preparing raw data for model training, which includes transformations to ensure the data is in an optimal format and techniques such as resizing images, to enhance model robustness.
-- Train: In this stage, the model is trained using the preprocessed data. This includes defining the model architecture, selecting hyperparameters, and running the training process.
-- Evaluate: The model is evaluated against a validation dataset to assess its performance. A key metrics such as accuracy is computed to measure effectiveness.
+- **Preprocessing:** This stage involves preparing raw data for model training, which includes transformations to ensure the data is in an optimal format and techniques such as resizing images, to enhance model robustness.
+- **Train:** In this stage, the model is trained using the preprocessed data. This includes defining the model architecture, selecting hyperparameters, and running the training process.
+- **Evaluate:** The model is evaluated against a validation dataset to assess its performance. A key metrics such as accuracy is computed to measure effectiveness.
 
 ### API Integration
 
-- We have developed an API that allows users to upload images and receive real-time predictions regarding the classification of natural landscapes. In addition to predictions, the API provides information about the model's training procedure, including key parameters and evaluation metrics. It also tracks the environmental impact of the predictions, reporting on carbon emissions generated during training and evaluation, highlighting our commitment to sustainability.
+We have developed an API that allows users to upload images and receive real-time predictions regarding the classification of natural landscapes. In addition to predictions, the API provides information about the model's training procedure, including key parameters and evaluation metrics. It also tracks the environmental impact of the predictions, reporting on carbon emissions generated during training and evaluation, highlighting our commitment to sustainability.
 
 ### Performance Evaluation and Sustainability
 
-- Evaluation Metrics: Model performance metrics are documented in the metrics/scores.json file for comprehensive evaluation.
-- Environmental Monitoring: The project tracks the ecological impact of model training, with emissions data in the metrics/emissions.csv file.
+- **Evaluation Metrics:** Model performance metrics are documented in the `metrics/scores.json` file for comprehensive evaluation.
+- **Environmental Monitoring:** The project tracks the ecological impact of model training, with emissions data in the `metrics/emissions.csv` file.
 
 ### Code Quality and Testing
 
-- The tests/ directory contains unit tests to ensure the code's reliability, spanning various processes from data preprocessing to model predictions. The project uses Pylint to enforce coding standards and improve code quality.
+- The `tests/`directory contains unit tests to ensure the code's reliability, spanning various processes from data preprocessing to model predictions.
+  The project uses Pylint to enforce coding standards and improve code quality.
 --------
 
