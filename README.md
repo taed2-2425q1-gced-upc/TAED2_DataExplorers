@@ -139,10 +139,13 @@ git clone git clone https://github.com/taed2-2425q1-gced-upc/TAED2_DataExplorers
 
 After cloning the project, you’ll need to install the required dependencies and libraries using Poetry. You will need to execute: 
 
-``bash
+```bash
 poetry install 
 ```
 
 ### Downloading the data and model
+
+Then you can obtain the data and model fetching them by using DVC and downloading it from the remote repository:
+
 --------
 
