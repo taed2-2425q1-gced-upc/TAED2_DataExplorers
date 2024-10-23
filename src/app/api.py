@@ -112,7 +112,7 @@ async def _predict_image(file: UploadFile):
         x_processed_image = preprocessing.process_images(tmp_path, [], [], 100, needs_return=True)
         x_processed_image = preprocessing.list_to_nparray(x_processed_image)
         cv_model = model_wrappers_dict["image"]["cnn"]["model"]
-
+        '''
         with EmissionsTracker(
             project_name="image-classification",
             measure_power_secs=1,
@@ -122,8 +122,10 @@ async def _predict_image(file: UploadFile):
             on_csv_write="append",
             default_cpu_power=45,
         ):
-            predictions = cv_model.predict(x_processed_image)
+        '''
+        predictions = cv_model.predict(x_processed_image)
 
+        '''
         # Read the emissions file and return the latest record
         emissions_file = os.path.join(METRICS_DIR, "emissions_api.csv")
         if not os.path.exists(emissions_file):
@@ -139,7 +141,7 @@ async def _predict_image(file: UploadFile):
                 "Carbon emissions in kg": float(emissions_data[5]),
                 "Energy consumed in kWh": float(emissions_data[13]),
             }
-
+        '''
         predictions_dict = {preprocessing.getcode(i): predictions.tolist()[0][i] for i in range(6)}
     except Exception as e:
         return JSONResponse(status_code=HTTPStatus.INTERNAL_SERVER_ERROR, content={"error": str(e)})
@@ -155,8 +157,7 @@ async def _predict_image(file: UploadFile):
         "Data": {
             "Model": "Convolutional Neural Network",
             "The prediction scores are": predictions_dict,
-            "The predicted class is": predicted_label,
-            "Prediction emissions ": emissions_response, 
+            "The predicted class is": predicted_label, 
         },
     }
 
