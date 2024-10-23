@@ -121,7 +121,25 @@ We have developed an API that allows users to upload images and receive real-tim
 
 ### Code Quality and Testing
 
-- The `tests/`directory contains unit tests to ensure the code's reliability, spanning various processes from data preprocessing to model predictions.
-  The project uses Pylint to enforce coding standards and improve code quality.
+The `tests/`directory contains unit tests to ensure the code's reliability, spanning various processes from data preprocessing to model predictions. The project uses Pylint to enforce coding standards and improve code quality.
+
+## Instructions
+
+Follow the steps below to set up and run the project locally:
+
+### Cloning the Repository
+
+To begin, clone the repository to your local machine using the following command:
+
+```bash
+git clone git clone https://github.com/taed2-2425q1-gced-upc/TAED2_DataExplorers.git
+
+### Installing Project Dependencies
+
+After cloning the project, you’ll need to install the required dependencies and libraries using Poetry. You will need to execute: 
+
+``bash
+poetry install 
+
 --------
 
