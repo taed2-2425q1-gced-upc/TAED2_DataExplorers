@@ -50,7 +50,7 @@ def evaluate_model(model_file_name, x, y):
     return metrics
 
 
-if __name__ == "__main__":
+def main():
     # Path to the metrics folder
     Path("metrics").mkdir(exist_ok=True)
     metrics_folder_path = METRICS_DIR
@@ -80,4 +80,7 @@ if __name__ == "__main__":
             )
 
         print("Evaluation completed.")
+
+if __name__ == "__main__":
+    main()
     
