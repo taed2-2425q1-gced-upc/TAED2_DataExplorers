@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
 
-## Project Scope
+## Introduction
 
 This project aims to develop a machine learning system for **classifying images of natural landscapes** into categories: buildings, forests, glaciers, mountains, seas, and streets. The system can help in the detection of environmental changes linked to climate change, such as glacier melting and biodiversity loss, thereby identifying potential natural disaster risks. 
 
@@ -14,15 +14,15 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 ## Project Organization
 
 ```
-├── Makefile           <- Makefile with convenience commands like `make data` or `make train`.
-├── README.md          <- The top-level README for developers using this project.
+├── Makefile              <- Makefile with convenience commands like `make data` or `make train`.
+├── README.md             <- The top-level README for developers using this project.
 ├── data
-│   ├── processed      <- The final, canonical data sets for modeling.
-│   └── raw            <- The original, immutable data dump.
+│   ├── processed         <- The final, canonical data sets for modeling.
+│   └── raw               <- The original, immutable data dump.
 │
-├── docs               <- A default mkdocs project; see www.mkdocs.org for details.
-│   ├── model_card     <- A document containing informaction of the model.
-│   └── dataset_card   <- A document containing informaction of the dataset.
+├── docs                  <- A default mkdocs project; see www.mkdocs.org for details.
+│   ├── model_card.md     <- A document containing informaction of the model.
+│   └── dataset_card.md   <- A document containing informaction of the dataset.
 │
 ├── models             <- Trained and serialized models, model predictions, or model summaries
 │
