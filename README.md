@@ -163,10 +163,9 @@ dvc repro
 
 If you have any questions or encounter any issues related to this project, please reach out to the following individuals:
 
-Martina Albà
-Sara Alonso
-Marc Colomer
-Carlota Gozalbo
-
+- **Martina Albà** - martina.alba@estudiantat.upc.edu
+- **Sara Alonso** - ara.alonso.del.hoyo@estudiantat.upc.edu
+- **Marc Colomer** - marc.colomer.xaus@estudiantat.upc.edu
+- **Carlota Gozalbo** - carlota.gozalbo@estudiantat.upc.edu
 --------
 
