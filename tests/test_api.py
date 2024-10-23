@@ -1,31 +1,36 @@
+"""
+Tests for the api functions.
+"""
+from unittest.mock import patch, MagicMock, mock_open
 from http import HTTPStatus
 import pytest
 import numpy as np
 from fastapi.testclient import TestClient
 from src.app.api import app
-from unittest.mock import patch, MagicMock, mock_open
-from src.config import TEST_DATA_DIR
-import tempfile
-import os
 
+# pylint: disable=C0301
+# pylint: disable=W0613
 
 @pytest.fixture(scope="module", autouse=True)
 def client():
+    """Set up a TestClient fixture for FastAPI app testing."""
     # Use the TestClient with a `with` statement to trigger the startup and shutdown events.
     with TestClient(app) as client:
-        yield client 
+        yield client
 
 def test_root(client):
+    """Test root endpoint for proper response structure and message."""
     response = client.get("/")
     json = response.json()
     assert response.status_code == HTTPStatus.OK
     assert json["message"] == "OK"
     assert json["status-code"] == HTTPStatus.OK
-    assert json["data"]["message"] == "Welcome to the landscape image classifier! Please, read the `/docs`!" 
+    assert json["data"]["message"] == """Welcome to the landscape image classifier! Please, read the `/docs`!"""
 
 
 @pytest.fixture
 def test_data_dir(tmp_path):
+    """Create a temporary directory for simulated image files."""
     # Crea un directorio temporal y añade archivos simulados
     mock_image = tmp_path / "test_image.jpg"
     mock_image.write_bytes(b'\x89PNG\r\n\x1a\n...' * 10)  # Simula contenido de imagen
@@ -34,14 +39,15 @@ def test_data_dir(tmp_path):
 @patch("os.path.exists", return_value=True)
 @pytest.mark.parametrize("image_filename", ["test_image.jpg"])  # Use file names directly for mock
 @patch("src.app.api.EmissionsTracker")  # Mock the EmissionsTracker class
-@patch("builtins.open",new_callable=mock_open, read_data="col1,col2,col3,col4,col5,col6,col7,col8,col9,col10,col11,col12,emissions,cpu_power\n0,0,0,0,0,0,0,0,0,0,0,0,10.0,45\n")
+@patch("builtins.open",new_callable=mock_open,
+    read_data="col1,col2,col3,col4,col5,col6,col7,col8,col9,col10,col11,col12,emissions,cpu_power\n0,0,0,0,0,0,0,0,0,0,0,0,10.0,45\n")
 def test_predict_image_valid(mock_open,mock_emissions_tracker, test_data_dir, image_filename, client):
     """Test image prediction with a valid image file, including emissions tracking."""
 
     # Simulate the predicted values returned from the model
     with patch("tensorflow.keras.models.load_model") as mock_load_model, \
          patch("cv2.imread") as mock_image:
-        
+
         # Mock emissions tracker to return a preset value
         mock_emissions_tracker.return_value.__enter__.return_value = {
         'col1': [0], 'col2': [0], 'col3': [0], 'col4': [0], 'col5': [0], 
@@ -84,7 +90,7 @@ def test_predict_image_not_emissions(mock_open,mock_emissions_tracker, test_data
     # Simulate the predicted values returned from the model
     with patch("tensorflow.keras.models.load_model") as mock_load_model, \
          patch("cv2.imread") as mock_image:
-        
+
 
         img_path = test_data_dir / image_filename
         mock_model_instance = mock_load_model.return_value
@@ -107,6 +113,7 @@ def test_predict_image_not_emissions(mock_open,mock_emissions_tracker, test_data
 
 
 def test_predict_image_invalid(client):
+    """Test invalid image file upload, expecting unprocessable entity error."""
     # Test with an invalid file type
     response = client.post(
         "/predict/image/",
@@ -115,6 +122,7 @@ def test_predict_image_invalid(client):
     assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY  # Expected error for invalid image input
 
 def test_training_info(client):
+    """Test the training info endpoint for proper response structure and content."""
     response = client.get("/training/info/")
     json = response.json()
     assert response.status_code == HTTPStatus.OK
@@ -169,9 +177,6 @@ def test_predict_image_exception(mock_open,mock_emissions_tracker, test_data_dir
     assert "error" in json_response
     assert json_response["error"] == "Error"
 
-    '''
-
-'''
 @patch("src.features.preprocessing.process_images")  # Mock the process_images method
 @pytest.mark.parametrize("image_filename", ["test_image.jpg"])
 def test_predict_image_exception(mock_process_images, test_data_dir, image_filename, client):
@@ -190,6 +195,7 @@ def test_predict_image_exception(mock_process_images, test_data_dir, image_filen
 @patch("src.app.api.EmissionsTracker")  # Mock the EmissionsTracker class
 @patch("builtins.open",new_callable=mock_open, read_data=None)
 def test_predict_image_exception(mock_open,mock_emissions_tracker1, test_data_dir, image_filename, client):
+    """Test prediction when an exception occurs during emissions tracking."""
     # Arrange: Set the process_images mock to return a valid input for the model
     with patch("tensorflow.keras.models.load_model") as mock_load_model1, \
          patch("cv2.imread") as mock_image:
@@ -219,6 +225,7 @@ def test_predict_image_exception(mock_open,mock_emissions_tracker1, test_data_di
 @patch("os.path.exists", return_value=False)  # Simulating that the emissions file does not exist
 @patch("mlflow.get_run")  # Mocking mlflow.get_run to return a mock run object
 def test_training_info_no_metrics(mock_get_run, mock_exists, client):
+    """Test training info endpoint when metrics are missing, expecting 404 error."""
     # Mocking mlflow.get_run to return an object with empty metrics and some params
     mock_run = MagicMock()
     mock_run.data.metrics = {}  # Simulate no metrics
@@ -227,7 +234,7 @@ def test_training_info_no_metrics(mock_get_run, mock_exists, client):
 
     # Call the endpoint
     response = client.get("/training/info/")
-    
+
     # Extract the response
     json_response = response.json()
 
@@ -239,7 +246,7 @@ def test_training_info_no_metrics(mock_get_run, mock_exists, client):
 
 @patch("mlflow.get_run", side_effect=Exception("MLflow error"))
 def test_training_info_exception(mock_mlflow_exception, client):
+    """Test training info endpoint when an MLflow error occurs, expecting 500 status."""
     response = client.get("/training/info/")
     assert response.status_code == 500
     assert "Error retrieving training information" in response.json()["message"]
-
