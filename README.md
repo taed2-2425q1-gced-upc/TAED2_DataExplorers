@@ -145,7 +145,27 @@ poetry install
 
 ### Downloading the data and model
 
-Then you can obtain the data and model fetching them by using DVC and downloading it from the remote repository:
+Next, you can retrieve the data and model by using DVC to fetch them from the remote repository. Execute the following command:
 
+```bash
+dvc pull
+```
+
+### Running the pipeline
+
+With everything set up, you can now execute the entire pipeline to preprocess the images, train the model, and evaluate the results. To do this, simply run the following command:
+
+```bash
+dvc repro
+```
+
+### Contact
+
+If you have any questions or encounter any issues related to this project, please reach out to the following individuals:
+
+- **Martina Albà** - martina.alba@estudiantat.upc.edu
+- **Sara Alonso** - sara.alonso.del.hoyo@estudiantat.upc.edu
+- **Marc Colomer** - marc.colomer.xaus@estudiantat.upc.edu
+- **Carlota Gozalbo** - carlota.gozalbo@estudiantat.upc.edu
 --------
 
