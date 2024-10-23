@@ -6,17 +6,15 @@ import glob as gb
 import os
 import warnings
 from pathlib import Path
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import cv2
 from src.config import PROCESSED_DATA_DIR, RAW_DATA_DIR
 warnings.filterwarnings('ignore')
 
-#This errors are ignored.
-#pylint: disable=E1101
-#pylint: disable=R0913
-#pylint: disable=R0917
+# This errors are ignored:
+# pylint: disable=R0913
+# pylint: disable=R0917
+# pylint: disable=E1101
 
 ################################## GLOBAL VARS ##################################
 input_folder_path = RAW_DATA_DIR
@@ -51,6 +49,7 @@ def process_images(file, x, y, s, needs_y=False, folder=None, needs_return=False
         y.append(code[folder])
     if needs_return:
         return x
+    return None
 
 def read_and_prepare_predictions(pred_path, x, y):
     """
