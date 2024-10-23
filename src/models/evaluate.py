@@ -6,7 +6,7 @@ import keras
 from pathlib import Path
 import numpy as np
 import mlflow
-from src.config import METRICS_DIR, PROCESSED_DATA_DIR
+from src.config import METRICS_DIR, PROCESSED_DATA_DIR, MODELS_DIR
 
 # Path to the models folder
 MODELS_FOLDER_PATH = Path("models")
@@ -42,7 +42,7 @@ def evaluate_model(model_file_name, x, y):
 
     # with open(MODELS_FOLDER_PATH / model_file_name, "rb") as pickled_model:
     #     model = pickle.load(pickled_model)
-    model_path = MODELS_FOLDER_PATH / model_file_name
+    model_path = MODELS_DIR / model_file_name
     model = keras.models.load_model(model_path)
 
         # Compute accuracy using the model
@@ -50,7 +50,7 @@ def evaluate_model(model_file_name, x, y):
     return metrics
 
 
-if __name__ == "__main__":
+def main():
     # Path to the metrics folder
     Path("metrics").mkdir(exist_ok=True)
     metrics_folder_path = METRICS_DIR
@@ -80,4 +80,7 @@ if __name__ == "__main__":
             )
 
         print("Evaluation completed.")
+
+if __name__ == "__main__":
+    main()
     
