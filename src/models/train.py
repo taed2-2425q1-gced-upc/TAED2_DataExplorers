@@ -38,7 +38,7 @@ def build_model(input_shape):
         keras.layers.Dropout(rate=0.5),
         keras.layers.Dense(6, activation='softmax'),
     ])
-    
+
     model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
     return model
 
@@ -77,12 +77,13 @@ def train_model():
     x_train, y_train = load_data(input_folder_path)
 
     # Build and compile the model
-    S = 100
-    model = build_model((S, S, 3))
+    s= 100
+    model = build_model((s, s, 3))
 
     # Track CO2 emissions during training
     emissions_output_folder = METRICS_DIR
-    emissions_metrics, emissions_params = track_emissions(emissions_output_folder, model, x_train, y_train)
+    emissions_metrics, emissions_params = track_emissions(emissions_output_folder,
+                                                          model, x_train, y_train)
 
     # Log the emissions to MLflow
     log_emissions_to_mlflow(emissions_metrics, emissions_params)
