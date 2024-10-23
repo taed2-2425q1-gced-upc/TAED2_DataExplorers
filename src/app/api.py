@@ -3,15 +3,15 @@ Main script: it includes our API initialization and endpoints.
 """
 
 import os
-import numpy as np
-import logging
+from pathlib import Path
+from http import HTTPStatus
 import tempfile
+import logging
+from typing import Dict
+from contextlib import asynccontextmanager
+import numpy as np
 import keras
 import mlflow
-from contextlib import asynccontextmanager
-from http import HTTPStatus
-from typing import Dict
-from pathlib import Path
 from codecarbon import EmissionsTracker
 from fastapi import FastAPI, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
@@ -20,6 +20,10 @@ from fastapi.responses import JSONResponse
 from src.config import METRICS_DIR
 from src.features import preprocessing
 MODELS_FOLDER_PATH = Path("models")
+
+# This errors are ignored:
+# pylint: disable=R0914
+# pylint: disable=W0718
 
 # Initialize the dictionary to group models by "tabular" or "image" and then by model type
 model_wrappers_dict: Dict[str, Dict[str, dict]] = {"image": {}}
@@ -59,13 +63,16 @@ async def lifespan(app: FastAPI):
     # Clear the list of models to avoid memory leaks
     # del model_wrappers_dict["tabular"]
     del model_wrappers_dict["image"]
-   
 
 
 # Define application
 app = FastAPI(
     title="Landscape image classifier",
-    description="Welcome to the Landscape Image Classifier API! This API allows you to classify landscape images using a Convolutional Neural Network model. Simply upload your image, and our model will provide you with classification results, including detailed prediction scores and environmental impact data related to emissions. Explore the endpoints to make the most of our powerful classification tool and contribute to a sustainable future!",
+    description="Welcome to the Landscape Image Classifier API! This API allows you to classify"
+    "landscape images using a Convolutional Neural Network model. Simply upload your image, and"
+    "our model will provide you with classification results, including detailed prediction scores"
+    "and environmental impact data related to emissions. Explore the endpoints to make the most of"
+    "our powerful classification tool and contribute to a sustainable future!",
     lifespan=lifespan,
 )
 
@@ -100,13 +107,12 @@ async def _predict_image(file: UploadFile):
 
     with tempfile.NamedTemporaryFile(delete=False, suffix=".jpg") as tmp:
         tmp.write(image_stream)
-        tmp_path = tmp.name  # Obtener la ruta del archivo temporal
-
+        tmp_path = tmp.name
     try:
         x_processed_image = preprocessing.process_images(tmp_path, [], [], 100, needs_return=True)
         x_processed_image = preprocessing.list_to_nparray(x_processed_image)
         cv_model = model_wrappers_dict["image"]["cnn"]["model"]
-        
+
         with EmissionsTracker(
             project_name="image-classification",
             measure_power_secs=1,
@@ -117,8 +123,7 @@ async def _predict_image(file: UploadFile):
             default_cpu_power=45,
         ):
             predictions = cv_model.predict(x_processed_image)
-        
-        
+
         # Read the emissions file and return the latest record
         emissions_file = os.path.join(METRICS_DIR, "emissions_api.csv")
         if not os.path.exists(emissions_file):
@@ -126,15 +131,14 @@ async def _predict_image(file: UploadFile):
             status_code=HTTPStatus.NOT_FOUND,
             content={"message": "Emissions data not found."},
         )
-        else:
-            with open(emissions_file, "r") as f:
-                lines = f.readlines()
-                last_line = lines[-1]  # Get the last recorded emissions data
-                emissions_data = last_line.strip().split(",")
-                emissions_response = {
-                    "Carbon emissions in kg": float(emissions_data[5]),
-                    "Energy consumed in kWh": float(emissions_data[13]),
-                }   
+        with open(emissions_file, "r", encoding='utf-8') as f:
+            lines = f.readlines()
+            last_line = lines[-1]  # Get the last recorded emissions data
+            emissions_data = last_line.strip().split(",")
+            emissions_response = {
+                "Carbon emissions in kg": float(emissions_data[5]),
+                "Energy consumed in kWh": float(emissions_data[13]),
+            }
 
         predictions_dict = {preprocessing.getcode(i): predictions.tolist()[0][i] for i in range(6)}
     except Exception as e:
@@ -164,14 +168,14 @@ async def training_info():
     """
     Returns model training information, including parameters, metrics, and training emissions.
     """
-   
-    MLFLOW_TRACKING_URI = "https://dagshub.com/martinaalba21/TAED2_DataExplorers.mlflow"
-    mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
+
+    mlflow_tracking_uri = "https://dagshub.com/martinaalba21/TAED2_DataExplorers.mlflow"
+    mlflow.set_tracking_uri(mlflow_tracking_uri)
 
 
     # Specify the MLflow run ID
     run_id = "77e05845316e44e1959cd55bb94819ae"
-    
+
     try:
         # Fetch the run data using the run ID
         run = mlflow.get_run(run_id)
@@ -187,15 +191,14 @@ async def training_info():
             status_code=HTTPStatus.NOT_FOUND,
             content={"message": "Emissions data not found."},
         )
-        else:
-            with open(emissions_file, "r") as f:
-                lines = f.readlines()
-                last_line = lines[-1]  # Get the last recorded emissions data
-                emissions_data = last_line.strip().split(",")
-                emissions_response = {
-                    "Carbon emissions in kg": float(emissions_data[5]),
-                    "Energy consumed in kWh": float(emissions_data[13]),
-                }   
+        with open(emissions_file, "r", encoding='utf-8') as f:
+            lines = f.readlines()
+            last_line = lines[-1]  # Get the last recorded emissions data
+            emissions_data = last_line.strip().split(",")
+            emissions_response = {
+                "Carbon emissions in kg": float(emissions_data[5]),
+                "Energy consumed in kWh": float(emissions_data[13]),
+            }
 
         response_data = {
             "message": "Training Information",
