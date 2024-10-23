@@ -153,6 +153,10 @@ dvc pull
 
 ### Running the pipeline
 
+With everything set up, you can now execute the entire pipeline to preprocess the images, train the model, and evaluate the results. To do this, simply run the following command:
 
+```bash
+dvc repro
+```
 --------
 
