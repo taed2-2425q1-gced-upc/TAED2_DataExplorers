@@ -8,7 +8,7 @@
 
 This project aims to develop a machine learning system for **classifying images of natural landscapes** into categories: buildings, forests, glaciers, mountains, seas, and streets. The system can help in the detection of environmental changes linked to climate change, such as glacier melting and biodiversity loss, thereby identifying potential natural disaster risks. 
 
-Using a dataset of approximately 25,000 images, the model will employ a Convolutional Neural Network (CNN) architecture via a Keras Sequential model. The system not only classifies images but also supports environmental monitoring and disaster preparedness efforts. By addressing potential biases in the dataset, the project ensures accurate predictions, contributing to global conservation strategies and informed decision-making in environmental management.
+Using a dataset of approximately 25,000 images, the model will employ a **Convolutional Neural Network (CNN)** architecture via a Keras Sequential model. The system not only classifies images but also supports environmental monitoring and disaster preparedness efforts. By addressing potential biases in the dataset, the project ensures accurate predictions, contributing to **global conservation strategies and informed decision-making in environmental management**.
 
 
 ## Project Organization
