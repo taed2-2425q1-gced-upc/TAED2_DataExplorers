@@ -24,41 +24,75 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 │   ├── model_card.md     <- A document containing informaction of the model.
 │   └── dataset_card.md   <- A document containing informaction of the dataset.
 │
-├── models             <- Trained and serialized models, model predictions, or model summaries
+── dvc.lock             <- Locks dependencies and outputs for each pipeline stage
 │
-├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+├── dvc.yaml             <-  Defines pipeline stages, dependencies, and outputs for DVC.
+│
+├──image_classification <- Source code for use in this project.
+│   │
+│   ├── __init__.py             <- Makes taed2_dataexplorers a Python module
+│   │
+│   ├── config.py               <- Store useful variables and configuration
+│   │
+│   ├── dataset.py              <- Scripts to download or generate data
+│   │
+│   ├── features.py             <- Code to create features for modeling
+│   │
+│   ├── modeling                
+│   │   ├── __init__.py 
+│   │   ├── predict.py          <- Code to run model inference with trained models          
+│   │   └── train.py            <- Code to train models
+│   │
+│   └── plots.py                <- Code to create visualizations
+│
+├── metrics              <- Storage for model metrics
+│
+├── models               <- Trained and serialized models, model predictions, or model summaries
+│
+├── notebooks            <- Jupyter notebooks. Naming convention is a number (for ordering),
 │                         the creator's initials, and a short `-` delimited description, e.g.
 │                         `1.0-jqp-initial-data-exploration`.
 │
-├── pyproject.toml     <- Project configuration file with package metadata for 
+├── out                  <- Project configuration file with package metadata
+│
+├── poetry.lock          <- Locks exact packages versions to ensure a consistent environment.
+├── pyproject.toml       <- Project configuration file with package metadata for 
 │                         taed2_dataexplorers and configuration for tools like black
 │
-├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+├── references           <- Data dictionaries, manuals, and all other explanatory materials.
 │
-├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-│   └── figures        <- Generated graphics and figures to be used in reporting
+├── reports              <- Generated analysis as HTML, PDF, LaTeXess data, etc.
+│   └── figures          <- Generated graphics and figures to be used in reporting
 │
-├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+├── requirements.txt     <- The requirements file for reproducing the analysis environment, e.g.
 │                         generated with `pip freeze > requirements.txt`
 │
-├── setup.cfg          <- Configuration file for flake8
+├── setup.cfg            <- Configuration file for flake8
 │
-└── taed2_dataexplorers   <- Source code for use in this project.
+├── src                  <- <- Source code for the project, containing all application logic and modules.
+│   │
+│   ├── app                     
+│   │   ├── api.py                      <- Code to initialize FatAPI application
+│   │
+│   ├── features                
+│   │   ├── deepchecks_validation.py    <- Code to perform data validation using Deepchecks
+│   │   ├── preprocessing.py            <- Code to preprocess data
+│   │   
+│   ├── models                 
+│   │   ├── evaluate.py                 <- Code to evaluate a trained image classification
+│   │   ├── train.py                    <- Code to train an image 
+│   │
+│   ├── __init__.py             
+│   │
+│   │
+│   ├── config.py               <-  Store useful variables and configuration
+│
+└── tests                <- Directory containing unit tests for the project
     │
-    ├── __init__.py             <- Makes taed2_dataexplorers a Python module
+    ├── test_models.py          <- Code to test a model
     │
-    ├── config.py               <- Store useful variables and configuration
-    │
-    ├── dataset.py              <- Scripts to download or generate data
-    │
-    ├── features.py             <- Code to create features for modeling
-    │
-    ├── modeling                
-    │   ├── __init__.py 
-    │   ├── predict.py          <- Code to run model inference with trained models          
-    │   └── train.py            <- Code to train models
-    │
-    └── plots.py                <- Code to create visualizations
+    ├── test_preprocessing.py   <- Code to test the preprocessing
+
 ```
 
 ## Main Project Components
