@@ -3,6 +3,7 @@ from pathlib import Path
 import numpy as np
 from unittest.mock import patch, MagicMock
 import pandas as pd
+import keras
 
 import pytest
 
@@ -63,8 +64,9 @@ def test_save_preprocessing(mock_save):
 
 @pytest.fixture
 def model():
-    with open(MODELS_DIR / "model.pkl", "rb") as f:
-        return pickle.load(f)
+    model_path = MODELS_DIR / 'model.h5'
+    model = keras.models.load_model(model_path)
+    return model
 
 @pytest.mark.parametrize(
     "sample, expected",
