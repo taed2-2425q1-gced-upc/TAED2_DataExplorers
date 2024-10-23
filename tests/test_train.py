@@ -1,20 +1,27 @@
+"""
+Tests for train functions
+"""
+from unittest.mock import patch
+from unittest import mock
+from pathlib import Path
 import pytest
 import pandas as pd
-from unittest import mock
 import numpy as np
-from pathlib import Path
 from src.models import train
-from unittest.mock import patch, MagicMock
-
 from src.config import PROCESSED_DATA_DIR
+
+# pylint: disable=W0612
+# pylint: disable=C0301
 
 @pytest.fixture
 def experiment_path():
+    """Fixture to provide the path to training images."""
     path_to_images = Path(PROCESSED_DATA_DIR / "seg_train")
     return path_to_images
 
 @pytest.fixture
 def mock_paths():
+    """Fixture to mock file paths for model, data, and metrics directories."""
     with mock.patch("src.models.train.PROCESSED_DATA_DIR", Path("/fake_path")) as processed_mock:
         with mock.patch("src.models.train.MODELS_DIR", Path("/fake_model_dir")) as models_mock:
             with mock.patch("src.models.train.METRICS_DIR", Path("/fake_metrics_dir")) as metrics_mock:
@@ -23,41 +30,46 @@ def mock_paths():
 
 @pytest.fixture
 def mock_training_data():
-    x_train = np.random.rand(100, 100, 100, 3)  
+    """Fixture to generate mock training data for testing."""
+    x_train = np.random.rand(100, 100, 100, 3)
     y_train = np.random.randint(0, 6, 100)
     return x_train, y_train
 
 
 def test_initialize_mlflow_experiment():
+    """Test the initialization of an MLflow experiment."""
     with mock.patch("mlflow.set_experiment") as mock_mlflow_experiment:
         train.initialize_mlflow_experiment()
         mock_mlflow_experiment.assert_called_once_with("image-classification")
 
 def test_load_data(mock_paths):
+    """Test loading of training data using mocked paths."""
     processed_mock, _, _ = mock_paths
     with mock.patch("numpy.load") as mock_npy_load:
         x_train, y_train = train.load_data(processed_mock)
-        assert mock_npy_load.call_count == 2  
+        assert mock_npy_load.call_count == 2
 
 def test_build_model():
+    """Test building a model with the correct input shape."""
     input_shape = (100, 100, 3)
     model = train.build_model(input_shape)
-    assert len(model.layers) > 0 
-    assert model.input_shape == (None, 100, 100, 3) 
+    assert len(model.layers) > 0
+    assert model.input_shape == (None, 100, 100, 3)
 
 def test_track_emissions(mock_training_data, mock_paths):
+    """Test tracking emissions and parameters during training."""
     _, _, metrics_mock = mock_paths
     x_train, y_train = mock_training_data
-    model = mock.Mock()  
+    model = mock.Mock()
     with mock.patch.object(model, 'fit', return_value=None) as mock_fit:
         with mock.patch("pandas.read_csv") as mock_read_csv:
             mock_read_csv.return_value = pd.DataFrame({
-                'col1': [0], 'col2': [0], 'col3': [0], 'col4': [0], 'col5': [0], 
-                'col6': [0], 'col7': [0], 'col8': [0], 'col9': [0], 'col10': [0], 
-                'emissions': [10.0], 'col11': [0],'col12': [0], # This represents an emissions metric
+                'col1': [0], 'col2': [0], 'col3': [0], 'col4': [0], 'col5': [0],
+                'col6': [0], 'col7': [0], 'col8': [0], 'col9': [0], 'col10': [0],
+                'emissions': [10.0], 'col11': [0],'col12': [0],
                 'cpu_power': [45]  # This represents a parameter
             })
-            
+
             emissions_metrics, emissions_params = train.track_emissions(
                 metrics_mock, model, x_train, y_train
             )
@@ -72,6 +84,7 @@ def test_track_emissions(mock_training_data, mock_paths):
             assert emissions_params['cpu_power'] == 45, "the value of 'cpu_power' is incorrect"
 
 def test_log_emissions_to_mlflow():
+    """Test logging emissions and parameters to MLflow."""
     emissions_metrics = {"emissions": 10.0}
     emissions_params = {"cpu_power": 45}
     with mock.patch("mlflow.log_params") as mock_log_params:
@@ -82,13 +95,15 @@ def test_log_emissions_to_mlflow():
 
 
 def test_save_model(mock_paths):
+    """Test saving a model to the specified path."""
     _, models_mock, _ = mock_paths
-    model = mock.Mock() 
-    with mock.patch.object(model, 'save') as mock_save: 
+    model = mock.Mock()
+    with mock.patch.object(model, 'save') as mock_save:
         train.save_model(model, models_mock / "model.h5")
         mock_save.assert_called_once_with(models_mock / "model.h5")
 
 def test_train_model(mock_paths):
+    """Test the complete training pipeline with mocked components."""
     # Arrange
     processed_mock, _, _ = mock_paths
     x_train = [np.array(np.zeros((100, 100, 3), dtype=np.uint8)), np.array(np.zeros((100, 100, 3), dtype=np.uint8)), np.array(np.zeros((100, 100, 3), dtype=np.uint8))]
@@ -101,7 +116,7 @@ def test_train_model(mock_paths):
          patch("src.models.train.track_emissions") as mock_track_emissions, \
          patch("src.models.train.log_emissions_to_mlflow") as mock_log_emissions_to_mlflow, \
          patch("src.models.train.save_model") as mock_save_model:
-        
+
         # Simular el modelo retornado por build_model
         mock_model = mock.Mock()
         mock_build_model.return_value = mock_model
