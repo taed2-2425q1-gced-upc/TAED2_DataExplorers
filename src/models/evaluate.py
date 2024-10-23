@@ -2,8 +2,8 @@
 This script handles the evaluation of a trained image classification model using validation data.
 """
 import json
-import keras
 from pathlib import Path
+import keras
 import numpy as np
 import mlflow
 from src.config import METRICS_DIR, PROCESSED_DATA_DIR, MODELS_DIR
@@ -51,6 +51,9 @@ def evaluate_model(model_file_name, x, y):
 
 
 def main():
+    """
+    Main function to call other functions
+    """
     # Path to the metrics folder
     Path("metrics").mkdir(exist_ok=True)
     metrics_folder_path = METRICS_DIR
@@ -83,4 +86,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
