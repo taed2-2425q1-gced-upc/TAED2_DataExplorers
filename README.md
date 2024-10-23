@@ -145,7 +145,14 @@ poetry install
 
 ### Downloading the data and model
 
-Then you can obtain the data and model fetching them by using DVC and downloading it from the remote repository:
+Next, you can retrieve the data and model by using DVC to fetch them from the remote repository. Execute the following command:
+
+```bash
+dvc pull
+```
+
+### Running the pipeline
+
 
 --------
 
