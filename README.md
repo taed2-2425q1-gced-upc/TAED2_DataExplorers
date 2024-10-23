@@ -133,6 +133,7 @@ To begin, clone the repository to your local machine using the following command
 
 ```bash
 git clone git clone https://github.com/taed2-2425q1-gced-upc/TAED2_DataExplorers.git
+```
 
 ### Installing Project Dependencies
 
@@ -140,6 +141,6 @@ After cloning the project, you’ll need to install the required dependencies an
 
 ``bash
 poetry install 
-
+```
 --------
 
