@@ -158,5 +158,15 @@ With everything set up, you can now execute the entire pipeline to preprocess th
 ```bash
 dvc repro
 ```
+
+### Contact
+
+If you have any questions or encounter any issues related to this project, please reach out to the following individuals:
+
+Martina Albà
+Sara Alonso
+Marc Colomer
+Carlota Gozalbo
+
 --------
 
