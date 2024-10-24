@@ -62,6 +62,7 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 ├── references           <- Data dictionaries, manuals, and all other explanatory materials.
 │
 ├── reports              <- Generated analysis as HTML, PDF, LaTeXess data, etc.
+│   ├── code_coverage    <- Stores the coverage of the pytest done, access to the index.html
 │   └── figures          <- Generated graphics and figures to be used in reporting
 │
 ├── requirements.txt     <- The requirements file for reproducing the analysis environment, e.g.
@@ -89,8 +90,9 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 │
 └── tests                <- Directory containing unit tests for the project
     │
-    ├── test_models.py          <- Code to test a model
-    │
+    ├── test_api.py             <- Code to test the training
+    ├── test_api.py             <- Code to test the api
+    ├── test_evaluate.py        <- Code to test the evaluate
     └── test_preprocessing.py   <- Code to test the preprocessing
 
 ```
