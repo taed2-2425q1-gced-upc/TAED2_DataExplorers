@@ -10,11 +10,6 @@ import numpy as np
 from src.config import MODELS_DIR, RAW_DATA_DIR
 from src.features import preprocessing
 
-# pylint: disable=W0621
-# pylint: disable=W0108
-# pylint: disable=W0612
-# pylint: disable=W0613
-
 @pytest.fixture
 def experiment_path():
     """Return the path to the experiment images."""
