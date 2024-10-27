@@ -8,8 +8,6 @@ import numpy as np
 from src.models import evaluate
 from src.config import PROCESSED_DATA_DIR, MODELS_DIR
 
-# pylint: disable=C0301
-
 @pytest.fixture
 def validation_data():
     """Fixture to provide mock validation data."""
