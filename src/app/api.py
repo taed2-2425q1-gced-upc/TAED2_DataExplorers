@@ -23,7 +23,6 @@ MODELS_FOLDER_PATH = Path("models")
 
 # This errors are ignored:
 # pylint: disable=R0914
-# pylint: disable=W0718
 
 # Initialize the dictionary to group models by "tabular" or "image" and then by model type
 model_wrappers_dict: Dict[str, Dict[str, dict]] = {"image": {}}
