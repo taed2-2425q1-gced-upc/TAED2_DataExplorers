@@ -10,9 +10,6 @@ import numpy as np
 from src.models import train
 from src.config import PROCESSED_DATA_DIR
 
-# pylint: disable=W0612
-# pylint: disable=C0301
-
 @pytest.fixture
 def experiment_path():
     """Fixture to provide the path to training images."""
