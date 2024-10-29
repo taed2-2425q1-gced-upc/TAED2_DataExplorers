@@ -145,29 +145,23 @@ The model's performance is measured using accuracy as the primary metric, which 
 ### Results
 
 The evaluation resulted in an accuracy score of [Accuracy Value Here]. This score indicates how well the model classifies landscape images into the correct categories. While accuracy gives a good overview of performance, it might not show all the model's strengths and weaknesses, especially if the dataset is imbalanced or if certain classes are more challenging to classify than others. Future evaluations could include more metrics, like a confusion matrix, to better understand misclassifications and identify fututre improvements of the model.
+
 #### Summary
 
 Overall, the model demonstrates a good performance, effectively classifying landscape images across most categories. However, there may be limitations in accurately identifying certain categories, particularly those with similar features or lower representation in the dataset. Enhancing dataset diversity and refining the model architecture could lead to better classification results in future iterations.
 
-## Model Examination [optional]
-
-<!-- Relevant interpretability work for the model goes here -->
-
-{{ model_examination | default("[More Information Needed]", true)}}
-
 ## Environmental Impact
 
-<!-- Total emissions (in grams of CO2eq) and additional considerations, such as electricity usage, go here. Edit the suggested text below accordingly -->
+The carbon emissions of all the training process and experiments made estimated using the [Machine Learning Impact calculator](https://mlco2.github.io/impact#compute) presented in [Lacoste et al. (2019)](https://arxiv.org/abs/1910.09700).
 
-Carbon emissions can be estimated using the [Machine Learning Impact calculator](https://mlco2.github.io/impact#compute) presented in [Lacoste et al. (2019)](https://arxiv.org/abs/1910.09700).
+- **Hardware Type:** T4x2
+- **Hours used:** 6
+- **Cloud Provider:** Kaggle
+- **Carbon Efficiency (kg/kWh):** 0.432
+- **Offset bought (%)**: 0
+- **Carbon Emitted (kg CO2):** 0.4
 
-- **Hardware Type:** {{ hardware_type | default("[More Information Needed]", true)}}
-- **Hours used:** {{ hours_used | default("[More Information Needed]", true)}}
-- **Cloud Provider:** {{ cloud_provider | default("[More Information Needed]", true)}}
-- **Compute Region:** {{ cloud_region | default("[More Information Needed]", true)}}
-- **Carbon Emitted:** {{ co2_emitted | default("[More Information Needed]", true)}}
-
-## Technical Specifications [optional]
+## Technical Specifications
 
 ### Model Architecture and Objective
 
@@ -187,10 +181,6 @@ The model uses a CNN architecture designed to classify six landscape categories,
 - **Python**
 - **OpenCV**: For image processing
 
-## Citation [optional]
-
-<!-- If there is a paper or blog post introducing the model, the APA and Bibtex information for that should go in this section. -->
-
 **BibTeX:**
 
 ```
@@ -207,7 +197,7 @@ The model uses a CNN architecture designed to classify six landscape categories,
 
 Ezzeldean, M. (2024). *Intel Image Classification CNN*. Kaggle. https://www.kaggle.com/code/mohammedezzeldean/intel-image-classification-cnn
 
-## Glossary [optional]
+## Glossary
 
 - **Convolutional Neural Network (CNN)**: A class of deep neural networks commonly used in image recognition and processing tasks, which uses a mathematical operation called convolution to extract features from images.
 - **Epoch**: One complete cycle through the entire training dataset during the training process of a machine learning model.
@@ -215,10 +205,6 @@ Ezzeldean, M. (2024). *Intel Image Classification CNN*. Kaggle. https://www.kagg
 - **Sparse Categorical Crossentropy**: A loss function used in multi-class classification problems that measures the performance of a model whose output is a probability value between 0 and 1.
 - **MLflow**: An open-source platform for managing the machine learning lifecycle, including experimentation, reproducibility, and deployment.
 
-
-## More Information [optional]
-
-{{ more_information | default("[More Information Needed]", true)}}
 
 ## Model Card Authors
 
