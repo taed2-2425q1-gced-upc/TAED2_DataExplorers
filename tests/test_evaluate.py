@@ -68,7 +68,6 @@ def test_main(mock_paths):
     mock_accuracy = 0.95
     processed_mock, models_mock, metrics_mock = mock_paths
 
-    # Mock functions
     with patch("src.models.evaluate.load_validation_data", return_value=(mock_x, mock_y)), \
          patch("src.models.evaluate.evaluate_model", return_value=(0.1, mock_accuracy)), \
          patch("src.models.evaluate.mlflow.start_run") as mock_start_run, \
@@ -76,10 +75,8 @@ def test_main(mock_paths):
          patch("src.models.evaluate.mlflow.log_metrics") as mock_log_metrics, \
          patch("builtins.open", mock_open()) as mock_file:
 
-        # Act
         evaluate.main()
 
-        # Assert
         mock_set_mlflow_experiment.assert_called_once()  # Check if MLflow run was started
         mock_start_run.assert_called_once()
         mock_log_metrics.assert_called_once_with({"accuracy": mock_accuracy})  # Check if metrics were logged
