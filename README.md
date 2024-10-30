@@ -28,23 +28,6 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 │
 ├── dvc.yaml             <-  Defines pipeline stages, dependencies, and outputs for DVC.
 │
-├──image_classification <- Source code for use in this project.
-│   │
-│   ├── __init__.py             <- Makes taed2_dataexplorers a Python module
-│   │
-│   ├── config.py               <- Store useful variables and configuration
-│   │
-│   ├── dataset.py              <- Scripts to download or generate data
-│   │
-│   ├── features.py             <- Code to create features for modeling
-│   │
-│   ├── modeling                
-│   │   ├── __init__.py 
-│   │   ├── predict.py          <- Code to run model inference with trained models          
-│   │   └── train.py            <- Code to train models
-│   │
-│   └── plots.py                <- Code to create visualizations
-│
 ├── metrics              <- Storage for model metrics
 │
 ├── models               <- Trained and serialized models, model predictions, or model summaries
@@ -58,8 +41,6 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 ├── poetry.lock          <- Locks exact packages versions to ensure a consistent environment.
 ├── pyproject.toml       <- Project configuration file with package metadata for 
 │                         taed2_dataexplorers and configuration for tools like black
-│
-├── references           <- Data dictionaries, manuals, and all other explanatory materials.
 │
 ├── reports              <- Generated analysis as HTML, PDF, LaTeXess data, etc.
 │   ├── code_coverage    <- Stores the coverage of the pytest done, access to the index.html
@@ -90,7 +71,7 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 │
 └── tests                <- Directory containing unit tests for the project
     │
-    ├── test_api.py             <- Code to test the training
+    ├── test_train.py           <- Code to test the training
     ├── test_api.py             <- Code to test the api
     ├── test_evaluate.py        <- Code to test the evaluate
     └── test_preprocessing.py   <- Code to test the preprocessing
