@@ -14,7 +14,6 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 ## Project Organization
 
 ```
-├── Makefile              <- Makefile with convenience commands like `make data` or `make train`.
 ├── README.md             <- The top-level README for developers using this project.
 ├── data
 │   ├── processed         <- The final, canonical data sets for modeling.
@@ -48,8 +47,6 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 │
 ├── requirements.txt     <- The requirements file for reproducing the analysis environment, e.g.
 │                         generated with `pip freeze > requirements.txt`
-│
-├── setup.cfg            <- Configuration file for flake8
 │
 ├── src                  <- <- Source code for the project, containing all application logic and modules.
 │   │
