@@ -35,8 +35,6 @@ Using a dataset of approximately 25,000 images, the model will employ a **Convol
 │                         the creator's initials, and a short `-` delimited description, e.g.
 │                         `1.0-jqp-initial-data-exploration`.
 │
-├── out                  <- Project configuration file with package metadata
-│
 ├── poetry.lock          <- Locks exact packages versions to ensure a consistent environment.
 ├── pyproject.toml       <- Project configuration file with package metadata for 
 │                         taed2_dataexplorers and configuration for tools like black
