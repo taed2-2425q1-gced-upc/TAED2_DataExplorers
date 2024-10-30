@@ -24,7 +24,6 @@ MODELS_FOLDER_PATH = Path("models")
 # This errors are ignored:
 # pylint: disable=R0914
 
-# Initialize the dictionary to group models by "tabular" or "image" and then by model type
 model_wrappers_dict: Dict[str, Dict[str, dict]] = {"image": {}}
 
 '''
@@ -59,8 +58,6 @@ async def lifespan(app: FastAPI):
 
     yield
 
-    # Clear the list of models to avoid memory leaks
-    # del model_wrappers_dict["tabular"]
     del model_wrappers_dict["image"]
 
 
