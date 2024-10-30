@@ -11,7 +11,6 @@ import os
 
 @pytest.fixture(scope="module", autouse=True)
 def client():
-    # Use the TestClient with a `with` statement to trigger the startup and shutdown events.
     with TestClient(app) as client:
         yield client 
 
@@ -68,7 +67,7 @@ def test_predict_image_invalid(client):
         "/predict/image/",
         files={"file": ("invalid.txt", b"not an image", "text/plain")},
     )
-    assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY  # Expected error for invalid image input
+    assert response.status_code == HTTPStatus.UNPROCESSABLE_ENTITY
 
 def test_training_info(client):
     response = client.get("/training/info/")
@@ -85,7 +84,7 @@ def test_training_info(client):
 def test_predict_image_exception(test_data_dir, image_filename, client):
     with patch("tensorflow.keras.models.load_model") as mock_load_model1, \
          patch("cv2.imread") as mock_image:
-        mock_image.return_value = np.array(np.zeros((10, 0, 3), dtype=np.uint8))  # Assume incorrect preprocessing
+        mock_image.return_value = np.array(np.zeros((10, 0, 3), dtype=np.uint8))
         mock_load_model1.return_value.side_effect = Exception("Prediction error")
 
         img_path = test_data_dir / image_filename
@@ -108,14 +107,14 @@ def test_predict_image_exception(test_data_dir, image_filename, client):
 def test_training_info_no_metrics(mock_get_run, mock_exists, client):
     mock_run = MagicMock()
     mock_run.data.metrics = {}  # Simulate no metrics
-    mock_run.data.params = {"param1": "value1"}  # Simulate some parameters
+    mock_run.data.params = {"param1": "value1"}
     mock_get_run.return_value = mock_run
 
     response = client.get("/training/info/")
     
     json_response = response.json()
 
-    assert response.status_code == HTTPStatus.NOT_FOUND  # Expecting 404 as per the emissions file missing
+    assert response.status_code == HTTPStatus.NOT_FOUND
     assert json_response["message"] == "Emissions data not found."
 
 
