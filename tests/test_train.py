@@ -73,7 +73,6 @@ def test_track_emissions(mock_training_data, mock_paths):
 
             mock_fit.assert_called_once_with(x_train, y_train, epochs=40, batch_size=64, verbose=1)
             mock_read_csv.assert_called_once_with(metrics_mock / "emissions.csv")
-            #print('EMISSIONS', emissions_metrics)
 
             assert isinstance(emissions_metrics, dict), "emissions_metrics is not a dictionary"
             assert isinstance(emissions_params, dict), "emissions_params is not a dictionary"
@@ -101,12 +100,10 @@ def test_save_model(mock_paths):
 
 def test_train_model(mock_paths):
     """Test the complete training pipeline with mocked components."""
-    # Arrange
     processed_mock, _, _ = mock_paths
     x_train = [np.array(np.zeros((100, 100, 3), dtype=np.uint8)), np.array(np.zeros((100, 100, 3), dtype=np.uint8)), np.array(np.zeros((100, 100, 3), dtype=np.uint8))]
     y_train = [1, 2, 3]
 
-    # Mock functions
     with patch("src.models.train.initialize_mlflow_experiment") as mock_initialize_mlflow_experiment, \
          patch("src.models.train.load_data", return_value=(x_train, y_train)) as mock_load_data, \
          patch("src.models.train.build_model") as mock_build_model, \
@@ -114,16 +111,12 @@ def test_train_model(mock_paths):
          patch("src.models.train.log_emissions_to_mlflow") as mock_log_emissions_to_mlflow, \
          patch("src.models.train.save_model") as mock_save_model:
 
-        # Simular el modelo retornado por build_model
         mock_model = mock.Mock()
         mock_build_model.return_value = mock_model
         mock_track_emissions.return_value = {"emissions": 10.0}, {"cpu_power": 45}
 
-
-        # Act
         train.train_model()
 
-        # Assert
         mock_initialize_mlflow_experiment.assert_called_once()
         mock_load_data.assert_called_once_with(mock_paths[0])  # El primer path es el de PROCESSED_DATA_DIR
         mock_build_model.assert_called_once_with((100, 100, 3))  # (S, S, 3) es (100, 100, 3)
